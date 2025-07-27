@@ -1,0 +1,309 @@
+---
+layout: default
+---
+
+<div class="blog-header">
+  <p>{{ page.description }}</p>
+</div>
+
+<div class="blog-posts">
+  {% if site.data.medium_posts.posts and site.data.medium_posts.posts.size > 0 %}
+    {% for post in site.data.medium_posts.posts %}
+      <article class="post-card">
+        {% if post.thumbnail %}
+          <div class="post-thumbnail" onclick="event.preventDefault(); event.stopPropagation(); window.open('{{ post.link }}', '_blank', 'noopener,noreferrer');">
+            <img src="{{ post.thumbnail }}" alt="{{ post.title }}" loading="lazy">
+          </div>
+        {% endif %}
+        
+        <div class="post-content">
+          <h2 class="post-title">
+            <a href="{{ post.link }}" target="_blank" rel="noopener noreferrer">
+              {{ post.title }}
+            </a>
+          </h2>
+          
+          <div class="post-meta">
+            <time datetime="{{ post.pubDate | date_to_xmlschema }}">
+              {{ post.pubDate | date: "%B %d, %Y" }}
+            </time>
+            <span class="post-author">by {{ post.author }}</span>
+          </div>
+          
+          <!-- Replace the simple paragraph with a div that preserves formatting -->
+          <div class="post-description">{{ post.description | newline_to_br }}</div>
+          
+          {% if post.categories and post.categories.size > 0 %}
+            <div class="post-categories">
+              {% for category in post.categories %}
+                <span class="category-tag">{{ category }}</span>
+              {% endfor %}
+            </div>
+          {% endif %}
+          
+          <div class="read-more-container">
+            <a href="{{ post.link }}" class="read-more-btn" target="_blank" rel="noopener noreferrer">
+              Read on Medium
+              <i class="fas fa-external-link-alt"></i>
+            </a>
+          </div>
+        </div>
+      </article>
+    {% endfor %}
+  {% else %}
+    <div class="no-posts">
+      <p>No posts available at the moment. Posts will be automatically synced from Medium.</p>
+    </div>
+  {% endif %}
+</div>
+
+<style>
+.blog-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.blog-posts {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.post-card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 2px 10px var(--card-shadow);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.post-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px var(--card-shadow-hover);
+}
+
+.post-thumbnail {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  background: var(--card-bg);
+  position: relative;
+  cursor: pointer; /* Make thumbnail clickable */
+}
+
+.post-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border: none;
+  outline: none;
+}
+
+/* Override Jekyll theme's automatic image processing styles for thumbnails */
+.post-thumbnail a,
+.post-thumbnail a.popup,
+.post-thumbnail a.img-link,
+.post-thumbnail a.shimmer {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  text-decoration: none;
+  background: none !important;
+  box-shadow: none !important;
+  transition: none !important;
+}
+
+.post-thumbnail a::before,
+.post-thumbnail a::after,
+.post-thumbnail a.shimmer::before,
+.post-thumbnail a.shimmer::after {
+  display: none !important;
+  content: none !important;
+}
+
+.post-thumbnail a:hover {
+  background: none !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.post-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.post-title {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.25rem;
+  line-height: 1.3;
+}
+
+.post-title a {
+  color: var(--heading-color);
+  text-decoration: none;
+}
+
+.post-title a:hover {
+  color: var(--link-color);
+}
+
+.post-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.post-description {
+  color: var(--text-color);
+  line-height: 1.4; /* Adjusted for better readability while keeping compact */
+  margin-bottom: 1rem;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+  max-width: 100%;
+  display: block;
+  flex-grow: 1;
+  
+  /* Limit to exactly 7 lines */
+  display: -webkit-box;
+  -webkit-line-clamp: 7;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  
+  /* Fallback for browsers that don't support -webkit-line-clamp */
+  max-height: calc(1.4em * 7); /* line-height * 7 lines */
+}
+
+.post-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.category-tag {
+  background: var(--tag-bg);
+  color: var(--tag-color);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  border: 1px solid var(--tag-border);
+}
+
+.read-more-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  color: var(--text-muted);
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  border: 1px solid var(--border-color);
+  margin-left: auto;
+}
+
+.read-more-btn:hover {
+  background: var(--tag-bg);
+  color: var(--text-color);
+  border-color: var(--text-muted);
+  transform: none;
+}
+
+.read-more-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: auto;
+  padding-top: 0.5rem;
+}
+
+.no-posts {
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-muted);
+}
+
+/* Light theme (default) */
+:root {
+  --card-bg: #ffffff;
+  --card-shadow: rgba(0, 0, 0, 0.1);
+  --card-shadow-hover: rgba(0, 0, 0, 0.15);
+  --border-color: #e1e5e9;
+  --heading-color: #1f2937;
+  --text-color: #374151;
+  --text-muted: #6b7280;
+  --link-color: #2563eb;
+  --tag-bg: #f3f4f6;
+  --tag-color: #6b7280;
+  --tag-border: #e5e7eb;
+  --btn-bg: #2563eb;
+  --btn-text: #ffffff;
+  --btn-border: #2563eb;
+  --btn-bg-hover: #1d4ed8;
+  --btn-text-hover: #ffffff;
+  --btn-border-hover: #1d4ed8;
+}
+
+/* Dark theme */
+[data-mode="dark"] {
+  --card-bg: #1a1a1a;
+  --card-shadow: rgba(0, 0, 0, 0.3);
+  --card-shadow-hover: rgba(0, 0, 0, 0.4);
+  --border-color: #374151;
+  --heading-color: #f9fafb;
+  --text-color: #d1d5db;
+  --text-muted: #9ca3af;
+  --link-color: #60a5fa;
+  --tag-bg: #374151;
+  --tag-color: #d1d5db;
+  --tag-border: #4b5563;
+  --btn-bg: #3b82f6;
+  --btn-text: #ffffff;
+  --btn-border: #3b82f6;
+  --btn-bg-hover: #2563eb;
+  --btn-text-hover: #ffffff;
+  --btn-border-hover: #2563eb;
+}
+
+/* Fallback for prefers-color-scheme dark mode */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-mode]) {
+    --card-bg: #1a1a1a;
+    --card-shadow: rgba(0, 0, 0, 0.3);
+    --card-shadow-hover: rgba(0, 0, 0, 0.4);
+    --border-color: #374151;
+    --heading-color: #f9fafb;
+    --text-color: #d1d5db;
+    --text-muted: #9ca3af;
+    --link-color: #60a5fa;
+    --tag-bg: #374151;
+    --tag-color: #d1d5db;
+    --tag-border: #4b5563;
+    --btn-bg: #3b82f6;
+    --btn-text: #ffffff;
+    --btn-border: #3b82f6;
+    --btn-bg-hover: #2563eb;
+    --btn-text-hover: #ffffff;
+    --btn-border-hover: #2563eb;
+  }
+}
+</style>
