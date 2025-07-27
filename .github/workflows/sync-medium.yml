@@ -20,6 +20,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
           
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -40,36 +41,42 @@ jobs:
           
           async function syncMediumPosts() {
             try {
-              console.log('Fetching Medium RSS feed...');
+              console.log('🚀 Starting Medium posts sync...');
               
-              // Multiple fallback URLs and proper headers
               const headers = {
-                'User-Agent': 'Mozilla/5.0 (compatible; GitHubActions/1.0)',
-                'Accept': 'application/rss+xml, application/xml, text/xml, application/json'
+                'User-Agent': 'Mozilla/5.0 (compatible; GitHubActions/1.0; +https://agarwalarjun.com)',
+                'Accept': 'application/rss+xml, application/xml, text/xml, application/json',
+                'Accept-Language': 'en-US,en;q=0.9'
               };
               
+              // Try multiple RSS sources
               const rssUrls = [
                 'https://medium.com/feed/@arjunagarwal899',
-                'https://api.rss2json.com/v1/api.json?rss_url=https%3A//medium.com/feed/@arjunagarwal899'
+                'https://api.rss2json.com/v1/api.json?rss_url=https%3A//medium.com/feed/@arjunagarwal899&count=20'
               ];
               
               let response;
               let isJsonResponse = false;
+              let feedData;
               
               for (const url of rssUrls) {
                 try {
-                  console.log('Trying: ' + url);
-                  response = await fetch(url, { headers: headers });
+                  console.log(`📡 Trying: ${url}`);
+                  response = await fetch(url, { 
+                    headers: headers,
+                    timeout: 10000 
+                  });
                   
                   if (response.ok) {
                     isJsonResponse = url.includes('rss2json.com');
-                    console.log('Success with: ' + url);
+                    feedData = await response.text();
+                    console.log(`✅ Success with: ${url}`);
                     break;
                   } else {
-                    console.log('Failed with status ' + response.status + ': ' + url);
+                    console.log(`❌ Failed with status ${response.status}: ${url}`);
                   }
                 } catch (error) {
-                  console.log('Error with ' + url + ': ' + error.message);
+                  console.log(`⚠️ Error with ${url}: ${error.message}`);
                 }
               }
               
@@ -80,29 +87,26 @@ jobs:
               let items = [];
               
               if (isJsonResponse) {
-                // Handle RSS2JSON API response
-                const jsonData = await response.json();
-                if (jsonData.status === 'ok') {
-                  items = jsonData.items.map(function(item) {
-                    return {
-                      title: [item.title],
-                      link: [item.link],
-                      pubDate: [item.pubDate],
-                      description: [item.description || item.content || ''],
-                      category: item.categories || []
-                    };
-                  });
+                const jsonData = JSON.parse(feedData);
+                if (jsonData.status === 'ok' && jsonData.items) {
+                  items = jsonData.items.map(item => ({
+                    title: [item.title],
+                    link: [item.link],
+                    pubDate: [item.pubDate],
+                    description: [item.description || item.content || ''],
+                    category: item.categories || [],
+                    guid: [item.guid || item.link]
+                  }));
                 } else {
-                  throw new Error('RSS2JSON API error: ' + jsonData.message);
+                  throw new Error(`RSS2JSON API error: ${jsonData.message || 'Unknown error'}`);
                 }
               } else {
-                // Handle direct RSS XML response
-                const xmlData = await response.text();
                 const parser = new xml2js.Parser();
-                const result = await parser.parseStringPromise(xmlData);
+                const result = await parser.parseStringPromise(feedData);
                 items = result.rss.channel[0].item || [];
               }
-              console.log('Found ' + items.length + ' posts');
+              
+              console.log(`📚 Found ${items.length} posts`);
               
               // Ensure _posts directory exists
               const postsDir = '_posts';
@@ -111,69 +115,100 @@ jobs:
               }
               
               let newPosts = 0;
+              let updatedPosts = 0;
               
               // Process each post
               for (const item of items) {
-                const title = item.title[0];
-                const link = item.link[0];
-                const pubDate = new Date(item.pubDate[0]);
-                const description = item.description[0];
-                const categories = item.category || [];
-                
-                // Clean up excerpt
-                const excerpt = description
-                  .replace(/<[^>]*>/g, '')
-                  .replace(/&nbsp;/g, ' ')
-                  .replace(/&amp;/g, '&')
-                  .replace(/&lt;/g, '<')
-                  .replace(/&gt;/g, '>')
-                  .replace(/&quot;/g, '"')
-                  .substring(0, 200) + '...';
-                
-                // Create filename
-                const dateStr = pubDate.toISOString().split('T')[0];
-                const slug = title.toLowerCase()
-                  .replace(/[^a-z0-9\s-]/g, '')
-                  .replace(/\s+/g, '-')
-                  .replace(/-+/g, '-')
-                  .trim();
-                const filename = dateStr + '-' + slug + '.md';
-                const filepath = path.join(postsDir, filename);
-                
-                // Skip if post already exists
-                if (fs.existsSync(filepath)) {
-                  console.log('Post already exists: ' + filename);
-                  continue;
+                try {
+                  const title = item.title[0];
+                  const link = item.link[0];
+                  const pubDate = new Date(item.pubDate[0]);
+                  const description = item.description[0];
+                  const categories = Array.isArray(item.category) ? item.category : [];
+                  
+                  // Skip if invalid data
+                  if (!title || !link || isNaN(pubDate.getTime())) {
+                    console.log(`⚠️ Skipping post with invalid data: ${title || 'Unknown'}`);
+                    continue;
+                  }
+                  
+                  // Clean up excerpt
+                  const excerpt = description
+                    .replace(/<[^>]*>/g, '')
+                    .replace(/&nbsp;/g, ' ')
+                    .replace(/&amp;/g, '&')
+                    .replace(/&lt;/g, '<')
+                    .replace(/&gt;/g, '>')
+                    .replace(/&quot;/g, '"')
+                    .replace(/\s+/g, ' ')
+                    .trim()
+                    .substring(0, 200);
+                  
+                  // Create filename
+                  const dateStr = pubDate.toISOString().split('T')[0];
+                  const slug = title.toLowerCase()
+                    .replace(/[^a-z0-9\s-]/g, '')
+                    .replace(/\s+/g, '-')
+                    .replace(/-+/g, '-')
+                    .replace(/^-+|-+$/g, '')
+                    .substring(0, 50);
+                  
+                  const filename = `${dateStr}-${slug}.md`;
+                  const filepath = path.join(postsDir, filename);
+                  
+                  // Create tags array
+                  const validCategories = categories.filter(cat => cat && typeof cat === 'string');
+                  const tags = validCategories.map(cat => `"${cat.replace(/"/g, '\\"')}"`).join(', ');
+                  
+                  // Create Jekyll front matter
+                  const frontMatter = `---
+layout: post
+title: "${title.replace(/"/g, '\\"')}"
+date: ${pubDate.toISOString()}
+categories: [Medium, Blog]
+tags: [${tags}]
+external_url: "${link}"
+excerpt: "${excerpt.replace(/"/g, '\\"')}${excerpt.length >= 200 ? '...' : ''}"
+medium_post: true
+author: Arjun Agarwal
+---
+
+This post was originally published on [Medium](${link}).
+
+${excerpt}${excerpt.length >= 200 ? '...' : ''}
+
+[Continue reading on Medium →](${link})
+`;
+                  
+                  // Check if post exists and if content has changed
+                  if (fs.existsSync(filepath)) {
+                    const existingContent = fs.readFileSync(filepath, 'utf8');
+                    if (existingContent !== frontMatter) {
+                      fs.writeFileSync(filepath, frontMatter);
+                      console.log(`🔄 Updated post: ${filename}`);
+                      updatedPosts++;
+                    } else {
+                      console.log(`✓ Post unchanged: ${filename}`);
+                    }
+                  } else {
+                    fs.writeFileSync(filepath, frontMatter);
+                    console.log(`📝 Created new post: ${filename}`);
+                    newPosts++;
+                  }
+                  
+                } catch (error) {
+                  console.log(`⚠️ Error processing post: ${error.message}`);
                 }
-                
-                // Create tags array
-                const tags = categories.map(cat => '"' + cat.replace(/"/g, '\\"') + '"').join(', ');
-                
-                // Create Jekyll front matter
-                const frontMatter = '---\n' +
-                  'layout: post\n' +
-                  'title: "' + title.replace(/"/g, '\\"') + '"\n' +
-                  'date: ' + pubDate.toISOString() + '\n' +
-                  'categories: [Medium, Blog]\n' +
-                  'tags: [' + tags + ']\n' +
-                  'external_url: "' + link + '"\n' +
-                  'excerpt: "' + excerpt.replace(/"/g, '\\"') + '"\n' +
-                  'medium_post: true\n' +
-                  '---\n\n' +
-                  'This post was originally published on [Medium](' + link + ').\n\n' +
-                  excerpt + '\n\n' +
-                  '[Continue reading on Medium →](' + link + ')\n';
-                
-                // Write the file
-                fs.writeFileSync(filepath, frontMatter);
-                console.log('Created post: ' + filename);
-                newPosts++;
               }
               
-              console.log('Sync completed. New posts: ' + newPosts);
+              console.log(`\n🎉 Sync completed!`);
+              console.log(`📝 New posts: ${newPosts}`);
+              console.log(`🔄 Updated posts: ${updatedPosts}`);
+              console.log(`📚 Total posts processed: ${items.length}`);
               
             } catch (error) {
-              console.error('Error syncing Medium posts:', error.message);
+              console.error('💥 Error syncing Medium posts:', error.message);
+              console.error('Stack trace:', error.stack);
               process.exit(1);
             }
           }
@@ -183,15 +218,20 @@ jobs:
           
       - name: Run sync script
         run: node sync-medium.js
-          
+        
       - name: Commit and push changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add _posts/
+          
+          # Check if there are changes to commit
           if git diff --staged --quiet; then
-            echo "No new posts to commit"
+            echo "📝 No changes to commit"
           else
-            git commit -m "Auto-sync Medium posts [skip ci]"
+            # Get the number of staged files
+            CHANGED_FILES=$(git diff --staged --name-only | wc -l)
+            git commit -m "🤖 Auto-sync Medium posts: ${CHANGED_FILES} file(s) updated [skip ci]"
             git push
+            echo "✅ Successfully pushed ${CHANGED_FILES} updated post(s)"
           fi
