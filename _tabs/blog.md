@@ -2,91 +2,52 @@
 layout: page
 title: Blog
 icon: fas fa-blog
-order: 1
+order: 2
+description: "My latest thoughts and insights on AI, machine learning, and technology - automatically synced from Medium."
 ---
 
 <div class="blog-container">
   <div class="blog-header">
-    <h1>📝 Research Papers & AI Insights</h1>
-    <p>Deep dives into cutting-edge AI research, technical tutorials, and industry insights. Automatically synced from my <a href="https://medium.com/@arjunagarwal899" target="_blank" rel="noopener">Medium publication</a>.</p>
+    <h1>My Blog Posts</h1>
+    <p>Here are my latest thoughts and insights on AI, machine learning, and technology, automatically synced from <a href="https://medium.com/@arjunagarwal899" target="_blank" rel="noopener">Medium</a>.</p>
     
+    {% assign blog_posts = site.posts | where: "medium_post", true %}
+    {% if blog_posts.size > 0 %}
     <div class="blog-stats">
-      {% assign blog_posts = site.posts | where: "medium_post", true %}
-      <div class="stat">
-        <span class="stat-number">{{ blog_posts.size }}</span>
-        <span class="stat-label">Posts</span>
-      </div>
-      <div class="stat">
-        {% assign total_tags = blog_posts | map: "tags" | join: "," | split: "," | uniq | size %}
-        <span class="stat-number">{{ total_tags }}</span>
-        <span class="stat-label">Topics</span>
-      </div>
-      <div class="stat">
-        {% assign latest_post = blog_posts.first %}
-        {% if latest_post %}
-          {% assign days_ago = 'now' | date: '%s' | minus: latest_post.date | date: '%s' | divided_by: 86400 %}
-          <span class="stat-number">{{ days_ago }}d</span>
-          <span class="stat-label">Latest</span>
-        {% else %}
-          <span class="stat-number">-</span>
-          <span class="stat-label">Latest</span>
-        {% endif %}
-      </div>
+      <span class="stat-item">
+        <i class="fas fa-newspaper"></i>
+        {{ blog_posts.size }} posts published
+      </span>
+      <span class="stat-item">
+        <i class="fas fa-calendar"></i>
+        Last updated: {{ blog_posts.first.date | date: "%B %d, %Y" }}
+      </span>
     </div>
+    {% endif %}
   </div>
 
-  <!-- Featured Post -->
-  {% if blog_posts.size > 0 %}
-  {% assign featured_post = blog_posts.first %}
-  <div class="featured-post">
-    <div class="featured-badge">✨ Latest Post</div>
-    <h2 class="featured-title">
-      <a href="{{ featured_post.external_url }}" target="_blank" rel="noopener">
-        {{ featured_post.title }}
-      </a>
-    </h2>
-    <div class="featured-meta">
-      <time datetime="{{ featured_post.date | date_to_xmlschema }}">
-        {{ featured_post.date | date: "%B %d, %Y" }}
-      </time>
-      {% if featured_post.tags and featured_post.tags.size > 0 %}
-        <div class="featured-tags">
-          {% for tag in featured_post.tags limit: 3 %}
-            <span class="tag">{{ tag }}</span>
-          {% endfor %}
-        </div>
-      {% endif %}
-    </div>
-    <p class="featured-excerpt">{{ featured_post.excerpt | strip_html | truncatewords: 40 }}</p>
-    <a href="{{ featured_post.external_url }}" target="_blank" rel="noopener" class="featured-cta">
-      Read Full Article <i class="fas fa-arrow-right"></i>
-    </a>
-  </div>
-  {% endif %}
-
-  <!-- Search and Filter -->
+  <!-- Filter and Search -->
   <div class="blog-controls">
     <div class="search-box">
-      <input type="text" id="searchInput" placeholder="🔍 Search posts..." />
+      <i class="fas fa-search"></i>
+      <input type="text" id="blog-search" placeholder="Search posts..." />
     </div>
+    
     <div class="filter-tags">
-      {% assign all_tags = blog_posts | map: "tags" | join: "," | split: "," | uniq | sort %}
-      <select id="tagFilter">
-        <option value="">All Topics ({{ blog_posts.size }})</option>
-        {% for tag in all_tags %}
-          {% if tag != blank %}
-            {% assign tag_count = blog_posts | where_exp: "post", "post.tags contains tag" | size %}
-            <option value="{{ tag }}">{{ tag }} ({{ tag_count }})</option>
-          {% endif %}
-        {% endfor %}
-      </select>
+      <span class="filter-label">Filter by topic:</span>
+      <button class="tag-filter active" data-tag="all">All</button>
+      {% assign all_tags = blog_posts | map: "tags" | join: "," | split: "," | sort | uniq %}
+      {% for tag in all_tags limit: 8 %}
+        {% unless tag == "Medium" or tag == "Blog" or tag == "" %}
+          <button class="tag-filter" data-tag="{{ tag }}">{{ tag }}</button>
+        {% endunless %}
+      {% endfor %}
     </div>
   </div>
 
-  <!-- Blog Grid -->
-  <div class="blog-grid" id="blogGrid">
-    {% for post in blog_posts offset: 1 %}
-    <article class="blog-card" data-tags="{{ post.tags | join: ',' | downcase }}" data-title="{{ post.title | downcase }}" data-excerpt="{{ post.excerpt | strip_html | downcase }}">
+  <div class="blog-grid" id="blog-grid">
+    {% for post in blog_posts limit: 24 %}
+    <article class="blog-card" data-tags="{{ post.tags | join: ',' | downcase }}">
       <div class="blog-card-content">
         <div class="blog-card-header">
           <h3 class="blog-card-title">
@@ -96,16 +57,16 @@ order: 1
           </h3>
           <div class="blog-card-meta">
             <time datetime="{{ post.date | date_to_xmlschema }}">
-              {{ post.date | date: "%b %d, %Y" }}
+              <i class="fas fa-calendar-alt"></i>
+              {{ post.date | date: "%B %d, %Y" }}
             </time>
-            {% if post.tags and post.tags.size > 0 %}
+            {% if post.tags %}
             <div class="blog-card-tags">
-              {% for tag in post.tags limit: 2 %}
-                <span class="tag-small">{{ tag }}</span>
+              {% for tag in post.tags limit: 3 %}
+                {% unless tag == "Medium" or tag == "Blog" %}
+                  <span class="tag">{{ tag }}</span>
+                {% endunless %}
               {% endfor %}
-              {% if post.tags.size > 2 %}
-                <span class="tag-small tag-more">+{{ post.tags.size | minus: 2 }}</span>
-              {% endif %}
             </div>
             {% endif %}
           </div>
@@ -117,62 +78,84 @@ order: 1
         
         <div class="blog-card-footer">
           <a href="{{ post.external_url }}" target="_blank" rel="noopener" class="read-more-btn">
-            Read on Medium
+            <span>Read on Medium</span>
             <i class="fab fa-medium"></i>
           </a>
+          <div class="post-reading-time">
+            {% assign words = post.excerpt | strip_html | number_of_words %}
+            {% assign reading_time = words | divided_by: 200 | plus: 1 %}
+            <i class="fas fa-clock"></i>
+            {{ reading_time }} min read
+          </div>
         </div>
       </div>
     </article>
     {% endfor %}
   </div>
 
-  <!-- No Results Message -->
-  <div id="noResults" class="no-results" style="display: none;">
-    <div class="no-results-content">
-      <i class="fas fa-search fa-3x"></i>
-      <h3>No posts found</h3>
-      <p>Try adjusting your search terms or filters</p>
+  {% if blog_posts.size == 0 %}
+  <div class="no-posts">
+    <div class="no-posts-icon">
+      <i class="fas fa-newspaper"></i>
     </div>
+    <h3>No blog posts found</h3>
+    <p>Posts will appear here automatically when synced from Medium.</p>
+    <p>The sync happens every 6 hours, or you can trigger it manually from the repository.</p>
+    <a href="https://github.com/arjunagarwal899/arjunagarwal899.github.io/actions" target="_blank" rel="noopener" class="check-sync-btn">
+      <i class="fas fa-sync-alt"></i>
+      Check Sync Status
+    </a>
+  </div>
+  {% endif %}
+
+  <div class="no-results" id="no-results" style="display: none;">
+    <div class="no-results-icon">
+      <i class="fas fa-search"></i>
+    </div>
+    <h3>No posts found</h3>
+    <p>Try adjusting your search or filter criteria.</p>
   </div>
 
-  {% if blog_posts.size == 0 %}
-  <div class="empty-state">
-    <div class="empty-content">
-      <i class="fas fa-blog fa-3x"></i>
-      <h3>Coming Soon!</h3>
-      <p>Blog posts will appear here automatically when synced from Medium.</p>
-      <a href="https://medium.com/@arjunagarwal899" target="_blank" rel="noopener" class="cta-button">
-        Visit Medium <i class="fab fa-medium"></i>
-      </a>
-    </div>
+  {% if blog_posts.size > 24 %}
+  <div class="load-more-container">
+    <button id="load-more-btn" class="load-more-btn">
+      <span>Load More Posts</span>
+      <i class="fas fa-chevron-down"></i>
+    </button>
   </div>
   {% endif %}
 
   <div class="blog-footer">
     <div class="footer-content">
       <p>
-        <strong>Want to stay updated?</strong> Follow me on 
+        <i class="fab fa-medium"></i>
+        Want to see all my posts? Visit my 
         <a href="https://medium.com/@arjunagarwal899" target="_blank" rel="noopener">
-          Medium <i class="fab fa-medium"></i>
+          Medium profile
         </a>
-        for the latest posts, or 
-        <a href="https://www.linkedin.com/in/arjunagarwal899" target="_blank" rel="noopener">
-          LinkedIn <i class="fab fa-linkedin"></i>
-        </a>
-        for professional updates.
       </p>
-      <div class="sync-info">
-        <small>
-          <i class="fas fa-sync-alt"></i> 
-          Posts automatically synced every 6 hours from Medium
-        </small>
-      </div>
+      <p class="sync-info">
+        <i class="fas fa-sync-alt"></i>
+        Posts are automatically synced every 6 hours from Medium
+      </p>
     </div>
   </div>
 </div>
 
 <style>
-/* Enhanced Blog Styles */
+:root {
+  --blog-primary: #667eea;
+  --blog-secondary: #764ba2;
+  --blog-accent: #f093fb;
+  --blog-text: var(--text-color);
+  --blog-text-muted: var(--text-muted-color);
+  --blog-bg: var(--main-bg);
+  --blog-card-bg: var(--card-bg);
+  --blog-border: var(--border-color);
+  --blog-shadow: rgba(0, 0, 0, 0.1);
+  --blog-hover-shadow: rgba(0, 0, 0, 0.15);
+}
+
 .blog-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -187,17 +170,18 @@ order: 1
 .blog-header h1 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--blog-primary) 0%, var(--blog-secondary) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  font-weight: 700;
 }
 
 .blog-header p {
   font-size: 1.1rem;
-  color: var(--text-muted-color);
+  color: var(--blog-text-muted);
   max-width: 600px;
-  margin: 0 auto 2rem auto;
+  margin: 0 auto 2rem;
   line-height: 1.6;
 }
 
@@ -205,143 +189,95 @@ order: 1
   display: flex;
   justify-content: center;
   gap: 2rem;
-  margin-top: 2rem;
-}
-
-.stat {
-  text-align: center;
-}
-
-.stat-number {
-  display: block;
-  font-size: 2rem;
-  font-weight: bold;
-  color: var(--link-color);
-}
-
-.stat-label {
-  font-size: 0.9rem;
-  color: var(--text-muted-color);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-/* Featured Post */
-.featured-post {
-  background: linear-gradient(135deg, var(--card-bg) 0%, var(--sidebar-bg) 100%);
-  border-radius: 16px;
-  padding: 2rem;
-  margin-bottom: 3rem;
-  border: 1px solid var(--card-border-color);
-  position: relative;
-  overflow: hidden;
-}
-
-.featured-post::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, #667eea, #764ba2);
-}
-
-.featured-badge {
-  display: inline-block;
-  background: var(--link-color);
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-}
-
-.featured-title {
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
-  line-height: 1.3;
-}
-
-.featured-title a {
-  color: var(--heading-color);
-  text-decoration: none;
-}
-
-.featured-meta {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1rem;
-  font-size: 0.9rem;
-  color: var(--text-muted-color);
-}
-
-.featured-tags {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.featured-excerpt {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
-  color: var(--text-color);
-}
-
-.featured-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: var(--link-color);
-  color: white;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 600;
-  transition: all 0.3s ease;
-}
-
-.featured-cta:hover {
-  background: var(--link-hover-color);
-  transform: translateY(-2px);
-}
-
-/* Controls */
-.blog-controls {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 2rem;
   flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--blog-text-muted);
+  font-size: 0.9rem;
+}
+
+.stat-item i {
+  color: var(--blog-primary);
+}
+
+.blog-controls {
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
 }
 
 .search-box {
-  flex: 1;
-  min-width: 250px;
+  position: relative;
+  max-width: 400px;
+  width: 100%;
+}
+
+.search-box i {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--blog-text-muted);
 }
 
 .search-box input {
   width: 100%;
-  padding: 0.75rem 1rem;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
+  padding: 0.75rem 1rem 0.75rem 2.5rem;
+  border: 2px solid var(--blog-border);
+  border-radius: 2rem;
+  background: var(--blog-card-bg);
+  color: var(--blog-text);
   font-size: 1rem;
-  background: var(--card-bg);
-  color: var(--text-color);
+  transition: all 0.3s ease;
 }
 
-.filter-tags select {
-  padding: 0.75rem 1rem;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  background: var(--card-bg);
-  color: var(--text-color);
-  font-size: 1rem;
-  min-width: 200px;
+.search-box input:focus {
+  outline: none;
+  border-color: var(--blog-primary);
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
-/* Blog Grid */
+.filter-tags {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.filter-label {
+  font-weight: 600;
+  color: var(--blog-text);
+  margin-right: 0.5rem;
+}
+
+.tag-filter {
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--blog-border);
+  background: var(--blog-card-bg);
+  color: var(--blog-text);
+  border-radius: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.tag-filter:hover,
+.tag-filter.active {
+  background: var(--blog-primary);
+  border-color: var(--blog-primary);
+  color: white;
+  transform: translateY(-2px);
+}
+
 .blog-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -350,22 +286,28 @@ order: 1
 }
 
 .blog-card {
-  background: var(--card-bg);
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background: var(--blog-card-bg);
+  border-radius: 16px;
+  box-shadow: 0 4px 6px var(--blog-shadow);
   transition: all 0.3s ease;
   overflow: hidden;
-  border: 1px solid var(--card-border-color);
-  opacity: 1;
+  border: 1px solid var(--blog-border);
+  position: relative;
+}
+
+.blog-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--blog-primary), var(--blog-secondary), var(--blog-accent));
 }
 
 .blog-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-}
-
-.blog-card.hidden {
-  display: none;
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px var(--blog-hover-shadow);
 }
 
 .blog-card-content {
@@ -379,6 +321,7 @@ order: 1
   margin: 0 0 1rem 0;
   font-size: 1.25rem;
   line-height: 1.4;
+  font-weight: 600;
 }
 
 .blog-card-title a {
@@ -388,43 +331,37 @@ order: 1
 }
 
 .blog-card-title a:hover {
-  color: var(--link-color);
+  color: var(--blog-primary);
 }
 
 .blog-card-meta {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 0.75rem;
   margin-bottom: 1rem;
   font-size: 0.875rem;
-  color: var(--text-muted-color);
+  color: var(--blog-text-muted);
+}
+
+.blog-card-meta time {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .blog-card-tags {
   display: flex;
-  gap: 0.25rem;
+  gap: 0.5rem;
   flex-wrap: wrap;
 }
 
-.tag, .tag-small {
-  background: var(--tag-bg, rgba(var(--link-color-rgb, 59, 130, 246), 0.1));
-  color: var(--link-color);
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
+.tag {
+  background: linear-gradient(135deg, var(--blog-primary), var(--blog-secondary));
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
   font-size: 0.75rem;
   font-weight: 500;
-  border: 1px solid var(--link-color);
-}
-
-.tag-small {
-  font-size: 0.7rem;
-  padding: 0.2rem 0.4rem;
-}
-
-.tag-more {
-  background: var(--text-muted-color);
-  color: white;
-  border-color: var(--text-muted-color);
 }
 
 .blog-card-excerpt {
@@ -433,126 +370,139 @@ order: 1
 }
 
 .blog-card-excerpt p {
-  color: var(--text-color);
+  color: var(--blog-text);
   line-height: 1.6;
   margin: 0;
+}
+
+.blog-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  gap: 1rem;
 }
 
 .read-more-btn {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  color: var(--link-color);
+  color: white;
+  background: linear-gradient(135deg, var(--blog-primary), var(--blog-secondary));
   text-decoration: none;
   font-weight: 500;
-  padding: 0.5rem 1rem;
-  border: 1px solid var(--link-color);
-  border-radius: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 2rem;
   transition: all 0.3s ease;
+  font-size: 0.9rem;
 }
 
 .read-more-btn:hover {
-  background: var(--link-color);
-  color: white;
-  transform: translateX(2px);
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
 
-/* Empty and Error States */
-.empty-state, .no-results {
+.post-reading-time {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--blog-text-muted);
+  font-size: 0.8rem;
+}
+
+.no-posts,
+.no-results {
   text-align: center;
   padding: 4rem 2rem;
-  color: var(--text-muted-color);
+  color: var(--blog-text-muted);
 }
 
-.empty-content, .no-results-content {
-  max-width: 400px;
-  margin: 0 auto;
-}
-
-.empty-content i, .no-results-content i {
-  color: var(--text-muted-color);
+.no-posts-icon,
+.no-results-icon {
+  font-size: 4rem;
+  color: var(--blog-primary);
   margin-bottom: 1rem;
 }
 
-.empty-content h3, .no-results-content h3 {
+.no-posts h3,
+.no-results h3 {
   margin-bottom: 1rem;
   color: var(--heading-color);
 }
 
-.cta-button {
+.check-sync-btn {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: var(--link-color);
   color: white;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
+  background: var(--blog-primary);
   text-decoration: none;
-  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 2rem;
   margin-top: 1rem;
   transition: all 0.3s ease;
 }
 
-.cta-button:hover {
-  background: var(--link-hover-color);
+.check-sync-btn:hover {
+  background: var(--blog-secondary);
   transform: translateY(-2px);
 }
 
-/* Footer */
+.load-more-container {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.load-more-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--blog-card-bg);
+  border: 2px solid var(--blog-primary);
+  color: var(--blog-primary);
+  padding: 0.75rem 1.5rem;
+  border-radius: 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.load-more-btn:hover {
+  background: var(--blog-primary);
+  color: white;
+}
+
 .blog-footer {
   text-align: center;
   padding-top: 2rem;
-  border-top: 1px solid var(--border-color);
+  border-top: 1px solid var(--blog-border);
 }
 
 .footer-content p {
-  margin-bottom: 1rem;
+  margin: 0.5rem 0;
+  color: var(--blog-text-muted);
 }
 
 .footer-content a {
-  color: var(--link-color);
+  color: var(--blog-primary);
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s ease;
 }
 
 .footer-content a:hover {
-  color: var(--link-hover-color);
+  color: var(--blog-secondary);
 }
 
 .sync-info {
-  color: var(--text-muted-color);
+  font-size: 0.9rem;
   font-style: italic;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .blog-header h1 {
-    font-size: 2rem;
-  }
-  
-  .blog-stats {
-    gap: 1rem;
-  }
-  
-  .stat-number {
-    font-size: 1.5rem;
-  }
-  
-  .featured-post {
-    padding: 1.5rem;
-  }
-  
-  .featured-title {
-    font-size: 1.5rem;
-  }
-  
-  .blog-controls {
-    flex-direction: column;
-  }
-  
-  .filter-tags select {
-    min-width: 100%;
+  .blog-container {
+    padding: 1rem 0.5rem;
   }
   
   .blog-grid {
@@ -560,88 +510,160 @@ order: 1
     gap: 1.5rem;
   }
   
-  .blog-card-meta {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .blog-container {
-    padding: 1rem 0.5rem;
-  }
-  
-  .blog-stats {
-    flex-direction: row;
-    gap: 1rem;
+  .blog-header h1 {
+    font-size: 2rem;
   }
   
   .blog-card-content {
     padding: 1.25rem;
   }
+  
+  .blog-card-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+  
+  .blog-stats {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .blog-controls {
+    margin-bottom: 1.5rem;
+  }
+  
+  .filter-tags {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .blog-header h1 {
+    font-size: 1.75rem;
+  }
+  
+  .blog-card-title {
+    font-size: 1.1rem;
+  }
+  
+  .filter-tags {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .filter-label {
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* Dark mode enhancements */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --blog-shadow: rgba(0, 0, 0, 0.3);
+    --blog-hover-shadow: rgba(0, 0, 0, 0.4);
+  }
+}
+
+/* Animation for cards appearing */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.blog-card {
+  animation: slideInUp 0.6s ease-out;
+}
+
+/* Hidden class for filtering */
+.blog-card.hidden {
+  display: none;
 }
 </style>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  const searchInput = document.getElementById('searchInput');
-  const tagFilter = document.getElementById('tagFilter');
-  const blogGrid = document.getElementById('blogGrid');
-  const noResults = document.getElementById('noResults');
-  const blogCards = blogGrid.querySelectorAll('.blog-card');
-
+  const searchInput = document.getElementById('blog-search');
+  const tagFilters = document.querySelectorAll('.tag-filter');
+  const blogCards = document.querySelectorAll('.blog-card');
+  const noResults = document.getElementById('no-results');
+  const blogGrid = document.getElementById('blog-grid');
+  
+  let currentFilter = 'all';
+  let currentSearch = '';
+  
+  // Search functionality
+  if (searchInput) {
+    searchInput.addEventListener('input', function(e) {
+      currentSearch = e.target.value.toLowerCase();
+      filterPosts();
+    });
+  }
+  
+  // Tag filter functionality
+  tagFilters.forEach(button => {
+    button.addEventListener('click', function() {
+      // Remove active class from all buttons
+      tagFilters.forEach(btn => btn.classList.remove('active'));
+      // Add active class to clicked button
+      this.classList.add('active');
+      
+      currentFilter = this.dataset.tag;
+      filterPosts();
+    });
+  });
+  
   function filterPosts() {
-    const searchTerm = searchInput.value.toLowerCase();
-    const selectedTag = tagFilter.value.toLowerCase();
     let visibleCount = 0;
-
+    
     blogCards.forEach(card => {
-      const title = card.dataset.title;
-      const excerpt = card.dataset.excerpt;
-      const tags = card.dataset.tags;
+      const title = card.querySelector('.blog-card-title a').textContent.toLowerCase();
+      const excerpt = card.querySelector('.blog-card-excerpt p').textContent.toLowerCase();
+      const tags = card.dataset.tags.toLowerCase();
       
-      const matchesSearch = !searchTerm || 
-        title.includes(searchTerm) || 
-        excerpt.includes(searchTerm);
+      // Check search match
+      const searchMatch = currentSearch === '' || 
+        title.includes(currentSearch) || 
+        excerpt.includes(currentSearch) ||
+        tags.includes(currentSearch);
       
-      const matchesTag = !selectedTag || 
-        tags.includes(selectedTag);
+      // Check tag filter match
+      const tagMatch = currentFilter === 'all' || 
+        tags.includes(currentFilter.toLowerCase());
       
-      if (matchesSearch && matchesTag) {
+      if (searchMatch && tagMatch) {
         card.classList.remove('hidden');
         visibleCount++;
       } else {
         card.classList.add('hidden');
       }
     });
-
+    
     // Show/hide no results message
-    if (visibleCount === 0 && (searchTerm || selectedTag)) {
-      noResults.style.display = 'block';
-      blogGrid.style.display = 'none';
-    } else {
-      noResults.style.display = 'none';
-      blogGrid.style.display = 'grid';
+    if (noResults) {
+      if (visibleCount === 0 && (currentSearch !== '' || currentFilter !== 'all')) {
+        noResults.style.display = 'block';
+        blogGrid.style.display = 'none';
+      } else {
+        noResults.style.display = 'none';
+        blogGrid.style.display = 'grid';
+      }
     }
   }
-
-  // Add event listeners
-  searchInput.addEventListener('input', filterPosts);
-  tagFilter.addEventListener('change', filterPosts);
   
-  // Add smooth scroll for better UX
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-        target.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
-      }
+  // Load more functionality (if implemented)
+  const loadMoreBtn = document.getElementById('load-more-btn');
+  if (loadMoreBtn) {
+    loadMoreBtn.addEventListener('click', function() {
+      // This would be implemented if you have pagination
+      console.log('Load more posts...');
     });
-  });
+  }
 });
 </script>
