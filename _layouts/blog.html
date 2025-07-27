@@ -168,26 +168,31 @@ layout: default
 
 .post-description {
   color: var(--text-color);
-  line-height: 1.4; /* Adjusted for better readability while keeping compact */
+  line-height: 1.5;
   margin-bottom: 1rem;
-  white-space: pre-wrap;
   word-wrap: break-word;
   overflow-wrap: break-word;
   word-break: break-word;
   hyphens: auto;
   max-width: 100%;
-  display: block;
   flex-grow: 1;
   
-  /* Limit to exactly 7 lines */
-  display: -webkit-box;
-  -webkit-line-clamp: 7;
-  -webkit-box-orient: vertical;
+  /* Use a more reliable approach for line limiting that preserves formatting */
+  max-height: calc(1.5em * 7); /* line-height * 7 lines */
   overflow: hidden;
-  text-overflow: ellipsis;
-  
-  /* Fallback for browsers that don't support -webkit-line-clamp */
-  max-height: calc(1.4em * 7); /* line-height * 7 lines */
+  position: relative;
+}
+
+/* Add fade effect at the bottom if content is cut off */
+.post-description::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1.5em;
+  background: linear-gradient(transparent, var(--card-bg));
+  pointer-events: none;
 }
 
 .post-categories {
