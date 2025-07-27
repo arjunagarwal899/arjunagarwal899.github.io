@@ -10,6 +10,7 @@ on:
 
 permissions:
   contents: write
+  actions: write  # Permission to trigger other workflows
 
 jobs:
   sync-posts:
@@ -31,15 +32,32 @@ jobs:
           node _scripts/sync-medium-posts.js
           
       - name: Commit changes
+        id: commit
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add .
           if git diff --staged --quiet; then
             echo "No changes to commit"
+            echo "changes=false" >> $GITHUB_OUTPUT
           else
             git commit -m "Auto-sync Medium posts $(date)"
             git push
+            echo "changes=true" >> $GITHUB_OUTPUT
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Trigger site deployment
+        if: steps.commit.outputs.changes == 'true'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'pages-deploy.yml',
+              ref: 'main'
+            });
+            console.log('Triggered pages deployment workflow');
