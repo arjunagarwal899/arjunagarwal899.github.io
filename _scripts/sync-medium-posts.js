@@ -66,7 +66,6 @@ async function syncMediumPosts() {
     // Write to Jekyll data file
     const outputPath = path.join(dataDir, 'medium_posts.yml');
     const yamlContent = `# Auto-generated from Medium RSS feed
-# Last updated: ${new Date().toISOString()}
 posts:
 ${processedPosts.map(post => `  - title: ${JSON.stringify(post.title)}
     link: ${JSON.stringify(post.link)}
