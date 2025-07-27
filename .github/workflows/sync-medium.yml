@@ -41,17 +41,67 @@ jobs:
           async function syncMediumPosts() {
             try {
               console.log('Fetching Medium RSS feed...');
-              const response = await fetch('https://medium.com/feed/@arjunagarwal899');
               
-              if (!response.ok) {
-                throw new Error('Failed to fetch RSS feed: ' + response.status);
+              // Multiple fallback URLs and proper headers
+              const headers = {
+                'User-Agent': 'Mozilla/5.0 (compatible; GitHubActions/1.0)',
+                'Accept': 'application/rss+xml, application/xml, text/xml, application/json'
+              };
+              
+              const rssUrls = [
+                'https://medium.com/feed/@arjunagarwal899',
+                'https://api.rss2json.com/v1/api.json?rss_url=https%3A//medium.com/feed/@arjunagarwal899'
+              ];
+              
+              let response;
+              let isJsonResponse = false;
+              
+              for (const url of rssUrls) {
+                try {
+                  console.log('Trying: ' + url);
+                  response = await fetch(url, { headers: headers });
+                  
+                  if (response.ok) {
+                    isJsonResponse = url.includes('rss2json.com');
+                    console.log('Success with: ' + url);
+                    break;
+                  } else {
+                    console.log('Failed with status ' + response.status + ': ' + url);
+                  }
+                } catch (error) {
+                  console.log('Error with ' + url + ': ' + error.message);
+                }
               }
               
-              const xmlData = await response.text();
-              const parser = new xml2js.Parser();
-              const result = await parser.parseStringPromise(xmlData);
+              if (!response || !response.ok) {
+                throw new Error('All RSS feed URLs failed');
+              }
               
-              const items = result.rss.channel[0].item || [];
+              let items = [];
+              
+              if (isJsonResponse) {
+                // Handle RSS2JSON API response
+                const jsonData = await response.json();
+                if (jsonData.status === 'ok') {
+                  items = jsonData.items.map(function(item) {
+                    return {
+                      title: [item.title],
+                      link: [item.link],
+                      pubDate: [item.pubDate],
+                      description: [item.description || item.content || ''],
+                      category: item.categories || []
+                    };
+                  });
+                } else {
+                  throw new Error('RSS2JSON API error: ' + jsonData.message);
+                }
+              } else {
+                // Handle direct RSS XML response
+                const xmlData = await response.text();
+                const parser = new xml2js.Parser();
+                const result = await parser.parseStringPromise(xmlData);
+                items = result.rss.channel[0].item || [];
+              }
               console.log('Found ' + items.length + ' posts');
               
               // Ensure _posts directory exists
