@@ -1,5 +1,12 @@
 # Auto-generated from Medium RSS feed
 posts:
+  - title: "Understanding LLaVa 1.5:"
+    link: "https://medium.com/@arjunagarwal899/understanding-llava-1-5-eebb4d2507fb?source=rss-82954e624086------2"
+    pubDate: "Mon, 18 Aug 2025 08:10:03 GMT"
+    description: "Paper: Improved Baselines with Visual Instruction Tuning (https://arxiv.org/pdf/2310.03744)\nMay 2024, UW-Madison, Microsoft Research\nIn this paper, the authors build upon their previous paper “Visual Instruction Tuning”. If you want to know more about LLaVa 1.0 i.e. the first paper, have a look here.\nThis core material presented in this paper can be divided into the following sections:\nComparison with other modelsArchitectural changesDataset changesResultsComparison with other models\nThe paper mainly focuses on the following competitors when it compares then with LLaVA 1...."
+    thumbnail: "https://cdn-images-1.medium.com/max/1024/1*yACt1qPTIT6c-pUdCVtvLQ.png"
+    categories: []
+    author: "Arjun Agarwal"
   - title: "Glossary: A Reference to All My Articles"
     link: "https://medium.com/@arjunagarwal899/glossary-of-all-my-articles-a059188e966f?source=rss-82954e624086------2"
     pubDate: "Sat, 16 Aug 2025 13:07:53 GMT"
@@ -61,12 +68,5 @@ posts:
     pubDate: "Tue, 01 Apr 2025 06:56:06 GMT"
     description: "Paper: Image Super-Resolution via Iterative Refinement (https://arxiv.org/pdf/2104.07636)\nIn this paper, the authors introduce a new method to perform super-resolution (SR) on low resolution (LR) images using diffusion models. The existing methods at that time involved a different set of algorithms (regressive, adversarial, flow-based, etc.) which had their own set of issues. This paper tries to solve for them with diffusion models and shows better results based on human perception of the model outputs.\nThe training process\n(to understand diffusion models, please read the..."
     thumbnail: "https://cdn-images-1.medium.com/max/852/1*Y2Lbh0zpFBMT15bjpuAIZg.png"
-    categories: []
-    author: "Arjun Agarwal"
-  - title: "Understanding MultiResUNet: Multi-Resolution Pathways for (Medical) Image Segmentation"
-    link: "https://medium.com/@arjunagarwal899/understanding-multiresunet-multi-resolution-pathways-for-medical-image-segmentation-f7294cd84a55?source=rss-82954e624086------2"
-    pubDate: "Sat, 29 Mar 2025 11:43:51 GMT"
-    description: "Paper: MultiResUNet : Rethinking the U-Net Architecture for Multimodal Biomedical Image Segmentation (https://arxiv.org/pdf/1902.04049)\nIn this paper, the authors attempt to improve upon the classical U-Net architecture by identifying the aspects where it lacks and incorporating changes accordingly.\nModifying the UNet block\nInstead of the two 3x3 conv layers in each scale of the U-Net encoder and decoder (which is approximately equivalent to a single 5x5 conv layer), they use three different kernel sizes (3, 5, and 7), and concatenate the outputs to get a single feature..."
-    thumbnail: "https://cdn-images-1.medium.com/max/1024/1*7ZisnJeqtCENQWwEFvIcFw.png"
     categories: []
     author: "Arjun Agarwal"
