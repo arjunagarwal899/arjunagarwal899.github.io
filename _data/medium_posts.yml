@@ -1,8 +1,8 @@
 # Auto-generated from Medium RSS feed
 posts:
-  - title: "Understanding LLaVa 1.5:"
-    link: "https://medium.com/@arjunagarwal899/understanding-llava-1-5-eebb4d2507fb?source=rss-82954e624086------2"
-    pubDate: "Mon, 18 Aug 2025 08:10:03 GMT"
+  - title: "Understanding LLaVa 1.5: Improvements in Training Recipes and Benchmarks"
+    link: "https://medium.com/@arjunagarwal899/understanding-llava-1-5-improvements-in-training-recipes-and-benchmarks-49e5d8d11702?source=rss-82954e624086------2"
+    pubDate: "Mon, 18 Aug 2025 08:23:43 GMT"
     description: "Paper: Improved Baselines with Visual Instruction Tuning (https://arxiv.org/pdf/2310.03744)\nMay 2024, UW-Madison, Microsoft Research\nIn this paper, the authors build upon their previous paper “Visual Instruction Tuning”. If you want to know more about LLaVa 1.0 i.e. the first paper, have a look here.\nThis core material presented in this paper can be divided into the following sections:\nComparison with other modelsArchitectural changesDataset changesResultsComparison with other models\nThe paper mainly focuses on the following competitors when it compares then with LLaVA 1...."
     thumbnail: "https://cdn-images-1.medium.com/max/1024/1*yACt1qPTIT6c-pUdCVtvLQ.png"
     categories: []
