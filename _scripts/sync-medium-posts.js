@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const yaml = require('js-yaml');
 
 async function syncMediumPosts() {
   const RSS_URL = 'https://medium.com/feed/@arjunagarwal899';
@@ -22,12 +23,27 @@ async function syncMediumPosts() {
     
     // Extract posts from XML
     const posts = parseRSSFeed(xmlData);
-    console.log(`Found ${posts.length} posts`);
+    console.log(`Found ${posts.length} posts from RSS`);
     
     // Ensure _data directory exists
     const dataDir = path.join(process.cwd(), '_data');
     if (!fs.existsSync(dataDir)) {
       fs.mkdirSync(dataDir, { recursive: true });
+    }
+    
+    // Load existing posts from YAML file
+    const outputPath = path.join(dataDir, 'medium_posts.yml');
+    let existingPosts = [];
+    if (fs.existsSync(outputPath)) {
+      try {
+        const existingContent = fs.readFileSync(outputPath, 'utf8');
+        const parsed = yaml.load(existingContent);
+        existingPosts = parsed?.posts || [];
+        console.log(`Found ${existingPosts.length} existing posts`);
+      } catch (error) {
+        console.warn('Error parsing existing YAML file:', error.message);
+        existingPosts = [];
+      }
     }
     
     // Process and clean posts data
@@ -57,27 +73,36 @@ async function syncMediumPosts() {
         link: post.link,
         pubDate: post.pubDate,
         description: description || 'Read more on Medium',
-        categories: post.categories || [],
         thumbnail: thumbnail,
         author: post.author || 'Arjun Agarwal'
       };
     });
     
+    // Create a set of RSS post links for quick lookup
+    const rssLinks = new Set(processedPosts.map(post => post.link));
+    
+    // Filter existing posts to keep only those NOT in the current RSS feed
+    const olderPosts = existingPosts.filter(post => !rssLinks.has(post.link));
+    console.log(`Found ${processedPosts.length} posts from RSS feed`);
+    console.log(`Keeping ${olderPosts.length} older posts not in RSS feed`);
+    
+    // Combine RSS posts (updated/new) with older existing posts (RSS posts at the beginning)
+    const allPosts = [...processedPosts, ...olderPosts];
+    console.log(`Total posts after merge: ${allPosts.length}`);
+    
     // Write to Jekyll data file
-    const outputPath = path.join(dataDir, 'medium_posts.yml');
     const yamlContent = `# Auto-generated from Medium RSS feed
 posts:
-${processedPosts.map(post => `  - title: ${JSON.stringify(post.title)}
+${allPosts.map(post => `  - title: ${JSON.stringify(post.title)}
     link: ${JSON.stringify(post.link)}
     pubDate: ${JSON.stringify(post.pubDate)}
     description: ${JSON.stringify(post.description)}
     thumbnail: ${post.thumbnail ? JSON.stringify(post.thumbnail) : 'null'}
-    categories: [${post.categories.map(cat => JSON.stringify(cat)).join(', ')}]
     author: ${JSON.stringify(post.author)}`).join('\n')}
 `;
     
     fs.writeFileSync(outputPath, yamlContent);
-    console.log(`Successfully wrote ${processedPosts.length} posts to ${outputPath}`);
+    console.log(`Successfully wrote ${allPosts.length} posts to ${outputPath}`);
     
   } catch (error) {
     console.error('Error syncing Medium posts:', error.message);
@@ -101,8 +126,7 @@ function parseRSSFeed(xmlData) {
       pubDate: extractXmlContent(itemXml, 'pubDate'),
       description: extractXmlContent(itemXml, 'description'),
       content: extractXmlContent(itemXml, 'content:encoded'),
-      author: extractXmlContent(itemXml, 'dc:creator'),
-      categories: extractXmlCategories(itemXml)
+      author: extractXmlContent(itemXml, 'dc:creator')
     };
     
     // Only add posts that have at least a title and link
@@ -139,31 +163,6 @@ function extractXmlContent(xml, tagName) {
   return null;
 }
 
-function extractXmlCategories(xml) {
-  const categories = [];
-  
-  // Handle CDATA categories
-  const cdataRegex = /<category[^>]*><!\\[CDATA\\[(.*?)\\]\\]><\/category>/g;
-  let match;
-  
-  while ((match = cdataRegex.exec(xml)) !== null) {
-    const category = match[1].trim();
-    if (category && !categories.includes(category)) {
-      categories.push(category);
-    }
-  }
-  
-  // Handle regular text categories
-  const regularRegex = /<category[^>]*>(.*?)<\/category>/g;
-  while ((match = regularRegex.exec(xml)) !== null) {
-    const category = match[1].trim();
-    if (category && !category.includes('CDATA') && !categories.includes(category)) {
-      categories.push(category);
-    }
-  }
-  
-  return categories;
-}
 
 function cleanHtmlContent(content) {
   if (!content) return '';
