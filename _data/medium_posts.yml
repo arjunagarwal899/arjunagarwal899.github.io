@@ -1,19 +1,5 @@
 # Auto-generated from Medium RSS feed
 posts:
-  - title: "Understanding LLaVa 1.5: Improvements in Training Recipes and Benchmarks"
-    link: "https://medium.com/@arjunagarwal899/understanding-llava-1-5-improvements-in-training-recipes-and-benchmarks-49e5d8d11702?source=rss-82954e624086------2"
-    pubDate: "Mon, 18 Aug 2025 08:23:43 GMT"
-    description: "Paper: Improved Baselines with Visual Instruction Tuning (https://arxiv.org/pdf/2310.03744)\nMay 2024, UW-Madison, Microsoft Research\nIn this paper, the authors build upon their previous paper “Visual Instruction Tuning”. If you want to know more about LLaVa 1.0 i.e. the first paper, have a look here.\nThis core material presented in this paper can be divided into the following sections:\nComparison with other modelsArchitectural changesDataset changesResultsComparison with other models\nThe paper mainly focuses on the following competitors when it compares then with LLaVA 1...."
-    thumbnail: "https://cdn-images-1.medium.com/max/1024/1*yACt1qPTIT6c-pUdCVtvLQ.png"
-    categories: []
-    author: "Arjun Agarwal"
-  - title: "Glossary: A Reference to All My Articles"
-    link: "https://medium.com/@arjunagarwal899/glossary-of-all-my-articles-a059188e966f?source=rss-82954e624086------2"
-    pubDate: "Sat, 16 Aug 2025 13:07:53 GMT"
-    description: "I wanted to provide a method for readers to be able to find any and all of my articles in one place with some sort of segregation, which I find hard to do with Medium; this is why I have created a sort of index below which lists all the articles based on some defining topic.\nResearch Papers\nDiffusion Models\nUnderstanding DiT: Transformer-Driven Diffusion for Image SynthesisUnderstanding ControlNet: A Way to Boss Around Your Diffusion ModelUnderstanding SR3: Super-Resolution using Diffusion ModelsUnderstanding LDMs: Diffusion in Latent Space for Efficient Resource..."
-    thumbnail: "https://cdn-images-1.medium.com/max/626/0*llQeHHGJ5OVDL7-a.jpg"
-    categories: []
-    author: "Arjun Agarwal"
   - title: "Understanding DiT: Transformer-Driven Diffusion for Image Synthesis"
     link: "https://medium.com/@arjunagarwal899/understanding-dit-transformer-driven-diffusion-for-image-synthesis-ea587bca69bb?source=rss-82954e624086------2"
     pubDate: "Sat, 26 Jul 2025 04:36:23 GMT"
@@ -68,5 +54,19 @@ posts:
     pubDate: "Tue, 01 Apr 2025 06:56:06 GMT"
     description: "Paper: Image Super-Resolution via Iterative Refinement (https://arxiv.org/pdf/2104.07636)\nIn this paper, the authors introduce a new method to perform super-resolution (SR) on low resolution (LR) images using diffusion models. The existing methods at that time involved a different set of algorithms (regressive, adversarial, flow-based, etc.) which had their own set of issues. This paper tries to solve for them with diffusion models and shows better results based on human perception of the model outputs.\nThe training process\n(to understand diffusion models, please read the..."
     thumbnail: "https://cdn-images-1.medium.com/max/852/1*Y2Lbh0zpFBMT15bjpuAIZg.png"
+    categories: []
+    author: "Arjun Agarwal"
+  - title: "Understanding MultiResUNet: Multi-Resolution Pathways for (Medical) Image Segmentation"
+    link: "https://medium.com/@arjunagarwal899/understanding-multiresunet-multi-resolution-pathways-for-medical-image-segmentation-f7294cd84a55?source=rss-82954e624086------2"
+    pubDate: "Sat, 29 Mar 2025 11:43:51 GMT"
+    description: "Paper: MultiResUNet : Rethinking the U-Net Architecture for Multimodal Biomedical Image Segmentation (https://arxiv.org/pdf/1902.04049)\nIn this paper, the authors attempt to improve upon the classical U-Net architecture by identifying the aspects where it lacks and incorporating changes accordingly.\nModifying the UNet block\nInstead of the two 3x3 conv layers in each scale of the U-Net encoder and decoder (which is approximately equivalent to a single 5x5 conv layer), they use three different kernel sizes (3, 5, and 7), and concatenate the outputs to get a single feature..."
+    thumbnail: "https://cdn-images-1.medium.com/max/1024/1*7ZisnJeqtCENQWwEFvIcFw.png"
+    categories: []
+    author: "Arjun Agarwal"
+  - title: "Understanding LDMs: Diffusion in Latent Space for Efficient Resource Utilization"
+    link: "https://medium.com/@arjunagarwal899/understanding-latent-diffusion-models-the-foundation-behind-stable-diffusions-revolution-in-ai-e1fd575a19e9?source=rss-82954e624086------2"
+    pubDate: "Fri, 28 Mar 2025 18:04:19 GMT"
+    description: "Paper: High-Resolution Image Synthesis with Latent Diffusion Models (https://arxiv.org/pdf/2112.10752)\nDiffusion models have provided us with a method to generate conditioned high quality samples from a model that trains in a stable manner, often achieving state-of-the-art results. But training diffusion models in the pixel-space can be costly in terms of time and resources. This paper aims to introduce latent diffusion models (LDM) that operate in the latent-space instead of the pixel-space to reduce the time and resouce dependencies drastically.\nThe two stages of training..."
+    thumbnail: "https://cdn-images-1.medium.com/max/1024/1*o8xev4TzSK2-pL54u9BYZQ.png"
     categories: []
     author: "Arjun Agarwal"
