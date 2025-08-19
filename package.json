@@ -1,0 +1,24 @@
+{
+  "name": "arjunagarwal899.github.io",
+  "version": "1.0.0",
+  "description": "Jekyll blog with Medium sync functionality",
+  "main": "index.js",
+  "scripts": {
+    "sync-medium": "node _scripts/sync-medium-posts.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "jekyll",
+    "blog",
+    "medium",
+    "sync"
+  ],
+  "author": "Arjun Agarwal",
+  "license": "MIT"
+}

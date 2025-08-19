@@ -26,6 +26,9 @@ jobs:
         with:
           node-version: '18'
           
+      - name: Install Node.js dependencies
+        run: npm install
+          
       - name: Fetch and process Medium posts
         run: |
           node _scripts/sync-medium-posts.js
