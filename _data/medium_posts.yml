@@ -1,5 +1,11 @@
 # Auto-generated from Medium RSS feed
 posts:
+  - title: "Understanding DETR: When Transformers Decide Bounding Boxes Are Just Another Sequence"
+    link: "https://medium.com/@arjunagarwal899/understanding-detr-when-transformers-decide-bounding-boxes-are-just-another-sequence-4ebf2c8a8214?source=rss-82954e624086------2"
+    pubDate: "Sun, 31 Aug 2025 13:17:36 GMT"
+    description: "Paper: End-to-End Object Detection with Transformers (https://arxiv.org/pdf/2005.12872)\nMay 2020, Facebook AI\nDETR: Detection Transformer\nTraditionally, detection models use complex strategies that employ the use of CNNs along with additional non-DL AI algorithms in order to generate bounding boxes with classification for objects of interest. The authors of this paper broke this trend by targeting the same goal but by using a simple transformer-based architecture and a smart method to calculate the loss. The authors strip detection architectures of region proposal networks,..."
+    thumbnail: "https://cdn-images-1.medium.com/max/486/1*jdlBlEtenNOYHHmdiISgXQ.png"
+    author: "Arjun Agarwal"
   - title: "Understanding LLaVa 1.5: Improvements in Training Recipes and Benchmarks"
     link: "https://medium.com/@arjunagarwal899/understanding-llava-1-5-improvements-in-training-recipes-and-benchmarks-49e5d8d11702?source=rss-82954e624086------2"
     pubDate: "Mon, 18 Aug 2025 08:23:43 GMT"
