@@ -1,5 +1,11 @@
 # Auto-generated from Medium RSS feed
 posts:
+  - title: "Understanding Classifier Guidance: Steering Diffusion Models with Gradient Signals"
+    link: "https://medium.com/@arjunagarwal899/understanding-classifier-guidance-steering-diffusion-models-with-gradient-signals-627554fc739e?source=rss-82954e624086------2"
+    pubDate: "Fri, 05 Sep 2025 05:50:13 GMT"
+    description: "Paper: Diffusion Models Beat GANs on Image Synthesis (https://openreview.net/pdf?id=AAWuCvzaVt)\nJune 2021, OpenAI\nGoal\nIt is well known that while GANs have superior image fidelity, they lack in terms of output diversity. While Diffusion Models (DMs) are a noteworthy competitor in the domain of image synthesis, providing high diversity in their outputs, they lack controllability in their outputs. The authors of this paper express two reasons for this disparity: extensive research on GANs leading to better results, and the inherent capability of GANs to be able to trade..."
+    thumbnail: "https://cdn-images-1.medium.com/max/1024/1*k8nUQcimciDBh9e40jTZIQ.png"
+    author: "Arjun Agarwal"
   - title: "Understanding DETR: When Transformers Decide Bounding Boxes Are Just Another Sequence"
     link: "https://medium.com/@arjunagarwal899/understanding-detr-when-transformers-decide-bounding-boxes-are-just-another-sequence-4ebf2c8a8214?source=rss-82954e624086------2"
     pubDate: "Sun, 31 Aug 2025 13:17:36 GMT"
@@ -15,7 +21,7 @@ posts:
   - title: "Glossary: A Reference to All My Articles"
     link: "https://medium.com/@arjunagarwal899/glossary-of-all-my-articles-a059188e966f?source=rss-82954e624086------2"
     pubDate: "Sat, 16 Aug 2025 13:07:53 GMT"
-    description: "I wanted to provide a method for readers to be able to find any and all of my articles in one place with some sort of segregation, which I find hard to do with Medium; this is why I have created a sort of index below which lists all the articles based on some defining topic.\nResearch Papers\nDiffusion Models\nUnderstanding DiT: Transformer-Driven Diffusion for Image SynthesisUnderstanding ControlNet: A Way to Boss Around Your Diffusion ModelUnderstanding SR3: Super-Resolution using Diffusion ModelsUnderstanding LDMs: Diffusion in Latent Space for Efficient Resource..."
+    description: "I wanted to provide a method for readers to be able to find any and all of my articles in one place with some sort of segregation, which I find hard to do with Medium; this is why I have created a sort of index below which lists all the articles based on some defining topic.\nResearch Papers\nDiffusion Models\nUnderstanding DiT: Transformer-Driven Diffusion for Image SynthesisUnderstanding ControlNet: A Way to Boss Around Your Diffusion ModelUnderstanding LDMs: Diffusion in Latent Space for Efficient Resource UtilizationUnderstanding Classifier Guidance: Steering Diffusion..."
     thumbnail: "https://cdn-images-1.medium.com/max/626/0*llQeHHGJ5OVDL7-a.jpg"
     author: "Arjun Agarwal"
   - title: "Understanding DiT: Transformer-Driven Diffusion for Image Synthesis"
