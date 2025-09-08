@@ -1,5 +1,11 @@
 # Auto-generated from Medium RSS feed
 posts:
+  - title: "Understanding Classifier-Free Guidance: Improving Control in Diffusion Models Without Additional…"
+    link: "https://medium.com/@arjunagarwal899/understanding-classifier-free-guidance-improving-control-in-diffusion-models-without-additional-84f9b12bacd1?source=rss-82954e624086------2"
+    pubDate: "Mon, 08 Sep 2025 11:27:55 GMT"
+    description: "Understanding Classifier-Free Guidance: Improving Control in Diffusion Models Without Additional Networks\nPaper: CLASSIFIER-FREE DIFFUSION GUIDANCE (https://arxiv.org/pdf/2207.12598)\nJul 2022, Google Research\nGoal\nThe authors of this paper set out to achieve the results of Classifier Guidance without the classifier, which is the main innovation presented in the latter. Avoiding the disadvantages of this classifier is the primary motivation behind this paper. Additionally, they are also able to do this with a single stage of training compared to the two networks required to..."
+    thumbnail: "https://cdn-images-1.medium.com/max/854/1*yrOSD-GR_mdL4wOcjBt2xQ.png"
+    author: "Arjun Agarwal"
   - title: "Understanding Classifier Guidance: Steering Diffusion Models with Gradient Signals"
     link: "https://medium.com/@arjunagarwal899/understanding-classifier-guidance-steering-diffusion-models-with-gradient-signals-627554fc739e?source=rss-82954e624086------2"
     pubDate: "Fri, 05 Sep 2025 05:50:13 GMT"
