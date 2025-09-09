@@ -1,5 +1,11 @@
 # Auto-generated from Medium RSS feed
 posts:
+  - title: "Reinforcement Learning Part 1: Basic Terminology and the Markov Decision Process"
+    link: "https://medium.com/@arjunagarwal899/reinforcement-learning-part-1-basic-terminology-and-the-markov-decision-process-5efcb5c9a411?source=rss-82954e624086------2"
+    pubDate: "Tue, 09 Sep 2025 07:35:54 GMT"
+    description: "Reinforcement learning is a branch of AI that has recently gained renewed attention through cutting-edge research and experimentation. While traditionally considered a slow and unstable training paradigm, its role in advancing large language models and the broader pursuit of AGI has revealed new benefits, making RL a powerful strategy that every AI scientist should have in their toolkit.\nTerminology\nLet us begin this with the most basic terminology that we will encounter throughout this series:\nAgent: An entity that perceives its environment and takes actions autonomously..."
+    thumbnail: "https://cdn-images-1.medium.com/max/1024/1*QwK0niwb-RKs1SOoD8nx_Q.png"
+    author: "Arjun Agarwal"
   - title: "Understanding Classifier-Free Guidance: Improving Control in Diffusion Models Without Additional…"
     link: "https://medium.com/@arjunagarwal899/understanding-classifier-free-guidance-improving-control-in-diffusion-models-without-additional-84f9b12bacd1?source=rss-82954e624086------2"
     pubDate: "Mon, 08 Sep 2025 11:27:55 GMT"
