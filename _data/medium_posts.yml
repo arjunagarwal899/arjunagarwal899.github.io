@@ -1,5 +1,11 @@
 # Auto-generated from Medium RSS feed
 posts:
+  - title: "Understanding MAISI: Synthetic CT Scan Generation with Medical AI Diffusion Models"
+    link: "https://medium.com/@arjunagarwal899/understanding-maisi-synthetic-ct-scan-generation-with-medical-ai-diffusion-models-ead222c6da95?source=rss-82954e624086------2"
+    pubDate: "Wed, 10 Sep 2025 08:34:53 GMT"
+    description: "Paper: MAISI: Medical AI for Synthetic Imaging (https://arxiv.org/pdf/2409.11169)\nOct 2024, NVIDIA\nWith generative AI being all the craze right now, diffusion models emerged as a highly effective means to create high fidelity and high diversity images. While much of the research in this field is aimed at controlling the outputs of these models, a small section of research is devoted to generating radiological scans, with an even smaller section of research aimed at generating 3D radiological scans, specifically Computed Tomography (CT) scans.\nOne may question why I am even..."
+    thumbnail: "https://cdn-images-1.medium.com/max/610/1*rFrWKE4Qfs-Dtcu_YTCFZg.png"
+    author: "Arjun Agarwal"
   - title: "Reinforcement Learning Part 1: Basic Terminology and the Markov Decision Process"
     link: "https://medium.com/@arjunagarwal899/reinforcement-learning-part-1-basic-terminology-and-the-markov-decision-process-5efcb5c9a411?source=rss-82954e624086------2"
     pubDate: "Tue, 09 Sep 2025 07:35:54 GMT"
