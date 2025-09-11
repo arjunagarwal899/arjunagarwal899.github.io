@@ -1,5 +1,11 @@
 # Auto-generated from Medium RSS feed
 posts:
+  - title: "Reinforcement Learning Part 2: The Bellman Equation and its Importance"
+    link: "https://medium.com/@arjunagarwal899/reinforcement-learning-part-2-the-bellman-equation-and-its-importance-d65e4d18a6eb?source=rss-82954e624086------2"
+    pubDate: "Thu, 11 Sep 2025 15:07:44 GMT"
+    description: "For those joining this series directly at Part 2, Part 1 contained a list of terminology that is commonly used in RL, all of which the reader should be familiar with. Part 1 is linked at the bottom of this post.\nHow do we know which policy is better?\nLet us say for any given RL problem, we have to find the “best” policy that the agent should follow. To find the best policy, we first need to define what makes a policy better than another one. Intuitively speaking, a policy is better if the agent receives higher rewards. Mathematically, state values provide us with a way to..."
+    thumbnail: "https://cdn-images-1.medium.com/max/1024/1*QwK0niwb-RKs1SOoD8nx_Q.png"
+    author: "Arjun Agarwal"
   - title: "Understanding MAISI: Synthetic CT Scan Generation with Medical AI Diffusion Models"
     link: "https://medium.com/@arjunagarwal899/understanding-maisi-synthetic-ct-scan-generation-with-medical-ai-diffusion-models-ead222c6da95?source=rss-82954e624086------2"
     pubDate: "Wed, 10 Sep 2025 08:34:53 GMT"
