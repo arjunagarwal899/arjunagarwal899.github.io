@@ -1,5 +1,11 @@
 # Auto-generated from Medium RSS feed
 posts:
+  - title: "Reinforcement Learning Part 3: The Bellman Optimality Equation and Optimal Policies"
+    link: "https://medium.com/@arjunagarwal899/reinforcement-learning-part-3-the-bellman-optimality-equation-and-optimal-policies-1303456ce592?source=rss-82954e624086------2"
+    pubDate: "Fri, 19 Sep 2025 16:45:30 GMT"
+    description: "Those joining us directly at Part 3 should be familiar with the Bellman Equation and how it can be used to compare two policies. We have defined optimal policies and optimal state values. We also know how to calculate state values iteratively rather than calculating a computationally-heavy matrix inverse using a step known as Policy Evaluation. Those interested in previous parts can find the links at the bottom.\nThe Bellman Optimality Equation\nThe Bellman Optimality Equation (BOE) builds on the Bellman Equation and tries to express the state values that an agent can achieve..."
+    thumbnail: "https://cdn-images-1.medium.com/max/1024/1*QwK0niwb-RKs1SOoD8nx_Q.png"
+    author: "Arjun Agarwal"
   - title: "Reinforcement Learning Part 2: The Bellman Equation and its Importance"
     link: "https://medium.com/@arjunagarwal899/reinforcement-learning-part-2-the-bellman-equation-and-its-importance-d65e4d18a6eb?source=rss-82954e624086------2"
     pubDate: "Thu, 11 Sep 2025 15:07:44 GMT"
