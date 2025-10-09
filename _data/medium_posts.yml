@@ -1,5 +1,11 @@
 # Auto-generated from Medium RSS feed
 posts:
+  - title: "Reinforcement Learning Part 4: Value Iteration and Policy Iteration"
+    link: "https://medium.com/@arjunagarwal899/reinforcement-learning-part-4-value-iteration-and-policy-iteration-21457427f9a9?source=rss-82954e624086------2"
+    pubDate: "Thu, 09 Oct 2025 06:57:37 GMT"
+    description: "By now we are comfortable with the terminology used in RL, the Bellman equation, the Bellman Optimality equation (BOE), and how we can solve one iteration of the BOE mathematically. Those who want to read the previous parts can find the links to the articles at the bottom. Now we will formally define three algorithms that allow us to achieve optimal policies. These algorithms have the following requirements:\nThe state space and action space must be finite.The dynamics model must be known i.e. the transition probabilities for each set of inputs must be known.All three..."
+    thumbnail: "https://cdn-images-1.medium.com/max/1024/1*QwK0niwb-RKs1SOoD8nx_Q.png"
+    author: "Arjun Agarwal"
   - title: "Reinforcement Learning Part 3: The Bellman Optimality Equation and Optimal Policies"
     link: "https://medium.com/@arjunagarwal899/reinforcement-learning-part-3-the-bellman-optimality-equation-and-optimal-policies-1303456ce592?source=rss-82954e624086------2"
     pubDate: "Fri, 19 Sep 2025 16:45:30 GMT"
