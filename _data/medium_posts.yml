@@ -1,5 +1,11 @@
 # Auto-generated from Medium RSS feed
 posts:
+  - title: "Understanding InternVL: Vision-Language Alignment through Cross-Attention Mechanisms"
+    link: "https://medium.com/@arjunagarwal899/understanding-internvl-vision-language-alignment-through-cross-attention-mechanisms-4a29523098f4?source=rss-82954e624086------2"
+    pubDate: "Tue, 14 Oct 2025 13:42:03 GMT"
+    description: "Paper: InternVL: Scaling up Vision Foundation Models and Aligning for Generic Visual-Linguistic Tasks (https://arxiv.org/pdf/2312.14238)\nJan 2024, OpenGVLab, China\nGoal\nWith the rapid growth in VLMs, the authors of this paper aim to create a VLM with a large vision model (6B) that is aligned with an equally sized LLM (8B).\nInstead of connecting the vision and language models using projection layers, the authors use cross attention and progressively train the network in order to reach better results.\nArchitecture\nVision model\nThe authors use a simple ViT model for the image..."
+    thumbnail: "https://cdn-images-1.medium.com/max/688/1*gUknLGWfpMem_5FDpa277A.png"
+    author: "Arjun Agarwal"
   - title: "Reinforcement Learning Part 4: Value Iteration and Policy Iteration"
     link: "https://medium.com/@arjunagarwal899/reinforcement-learning-part-4-value-iteration-and-policy-iteration-21457427f9a9?source=rss-82954e624086------2"
     pubDate: "Thu, 09 Oct 2025 06:57:37 GMT"
