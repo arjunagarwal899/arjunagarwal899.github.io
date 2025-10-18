@@ -1,5 +1,11 @@
 # Auto-generated from Medium RSS feed
 posts:
+  - title: "Understanding LoRA: Fine-Tuning Large Models Without Breaking the GPU"
+    link: "https://medium.com/@arjunagarwal899/understanding-lora-fine-tuning-large-models-without-breaking-the-gpu-2ecd097192fa?source=rss-82954e624086------2"
+    pubDate: "Sat, 18 Oct 2025 14:30:32 GMT"
+    description: "Paper: LoRA: LOW-RANK ADAPTATION OF LARGE LANGUAGE MODELS (https://arxiv.org/pdf/2106.09685)\nOct 2021, Microsoft\nGoal\nIn today’s world, there exist a lot of highly capable general purpose LLMs. However, most use-cases require specialized versions of these LLMs which is not an easy task. Keeping aside data curation and preparation, which in itself is quite demanding, current LLMs are multi-billion (and sometimes even multi-trillion) parameter models, and fine-tuning the model for training will require a costly high resource multi-node setup. The authors of this paper aim to..."
+    thumbnail: "https://cdn-images-1.medium.com/max/361/1*N5vneaRPykhwdq2RBuh0Xw.png"
+    author: "Arjun Agarwal"
   - title: "Understanding InternVL: Vision-Language Alignment through Cross-Attention Mechanisms"
     link: "https://medium.com/@arjunagarwal899/understanding-internvl-vision-language-alignment-through-cross-attention-mechanisms-4a29523098f4?source=rss-82954e624086------2"
     pubDate: "Tue, 14 Oct 2025 13:42:03 GMT"
