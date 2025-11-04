@@ -1,5 +1,11 @@
 # Auto-generated from Medium RSS feed
 posts:
+  - title: "Understanding GenerateCT: Advancing Synthetic CT Reconstruction through Generative Modeling"
+    link: "https://medium.com/@arjunagarwal899/understanding-generatect-advancing-synthetic-ct-reconstruction-through-generative-modeling-f8a86dfe56af?source=rss-82954e624086------2"
+    pubDate: "Tue, 04 Nov 2025 13:06:36 GMT"
+    description: "Paper: Text-Conditional Generation of 3D Chest CT Volumes (https://arxiv.org/pdf/2305.16037)\nJul 2024, University of Zurich, Istanbul Medipol University, ETH Zurich, Imperial College London, University of Pennsylvania, Stanford University\nWe discussed the MAISI paper previously which showcased excellent generative capabilities for CT scans, even with conditioning. This particular paper was actually released before MAISI and has a slightly different scope, but the authors of this paper take an interesting approach to achieve their goal, which is why I believe it is worth..."
+    thumbnail: "https://cdn-images-1.medium.com/max/711/1*fth_S058pY1JeySeYcBmYw.png"
+    author: "Arjun Agarwal"
   - title: "Understanding LoRA: Fine-Tuning Large Models Without Breaking the GPU"
     link: "https://medium.com/@arjunagarwal899/understanding-lora-fine-tuning-large-models-without-breaking-the-gpu-2ecd097192fa?source=rss-82954e624086------2"
     pubDate: "Sat, 18 Oct 2025 14:30:32 GMT"
