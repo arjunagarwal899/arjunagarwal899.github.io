@@ -1,5 +1,11 @@
 # Auto-generated from Medium RSS feed
 posts:
+  - title: "Reinforcement Learning Part 5: Monte Carlo Learning"
+    link: "https://medium.com/@arjunagarwal899/reinforcement-learning-part-5-monte-carlo-learning-3073014879b5?source=rss-82954e624086------2"
+    pubDate: "Wed, 12 Nov 2025 03:44:28 GMT"
+    description: "Up until now, we have assumed we know the dynamics model of our environment. However, this is often not the case as perfect knowledge of the world is not usually known. For all future articles, we shall assume that we do not know the transition probabilities beforehand, but their effects can be observed when the agent takes specified action. Note that we are still operating in a finite state space and action space.\nSince we no longer definitively know the dynamics model, we shall learn to approximate it using experience. This is known as Monte Carlo (MC) estimation. MC..."
+    thumbnail: "https://cdn-images-1.medium.com/max/1024/1*QwK0niwb-RKs1SOoD8nx_Q.png"
+    author: "Arjun Agarwal"
   - title: "Understanding GenerateCT: Advancing Synthetic CT Reconstruction through Generative Modeling"
     link: "https://medium.com/@arjunagarwal899/understanding-generatect-advancing-synthetic-ct-reconstruction-through-generative-modeling-f8a86dfe56af?source=rss-82954e624086------2"
     pubDate: "Tue, 04 Nov 2025 13:06:36 GMT"
