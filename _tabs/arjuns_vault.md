@@ -1,8 +1,8 @@
 ---
 layout: page
 title: "Arjun's Vault"
-icon: fas fa-link
-order: 3
+icon: fas fa-code
+order: 4
 ---
 
 <script>

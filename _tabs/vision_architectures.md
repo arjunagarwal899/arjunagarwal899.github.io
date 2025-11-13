@@ -1,8 +1,8 @@
 ---
 layout: page
 title: "Vision Architectures"
-icon: fas fa-link
-order: 2
+icon: fas fa-code
+order: 3
 ---
 
 <script>
