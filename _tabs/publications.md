@@ -155,7 +155,7 @@ order: 2
 ## Regulatory Clearances
 
 
-- **U.S. Food and Drug Administration** (Regulatory Clearance)\\
+- **U.S. Food and Drug Administration (FDA)**\\
   <a href="https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K251610" style="color: inherit; !important; border-bottom: none !important;">**qER-CTA (v1.0): Radiological computer-assisted triage and notification software**</a>\\
   Cleared on 8th Sep 2025
 
