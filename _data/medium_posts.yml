@@ -1,5 +1,11 @@
 # Auto-generated from Medium RSS feed
 posts:
+  - title: "Understanding MedSyn: Another Method of Diffusion-Based Medical Image Generation"
+    link: "https://medium.com/@arjunagarwal899/understanding-medsyn-another-method-of-diffusion-based-medical-image-generation-a7b1875b02b5?source=rss-82954e624086------2"
+    pubDate: "Tue, 18 Nov 2025 14:44:00 GMT"
+    description: "Paper: MedSyn: Text-guided Anatomy-aware Synthesis of High-Fidelity 3D CT Images (https://arxiv.org/pdf/2310.03559)\n(note that there two independent papers introducing “MedSyn”; the other one is about generating clinical notes using language models)\nOct 2024, Boston University, Stanford University, Carnegie Mellon University, University of Pittsburgh\nWe discuss another paper that deals with generative AI in 3D computer vision, specifically CT scans. This particular paper was released approximately the same time as the MAISI paper, after the GenerateCT paper.\nFor those..."
+    thumbnail: "https://cdn-images-1.medium.com/max/1024/1*_kkl5u74frhZzVUAnKsI_A.png"
+    author: "Arjun Agarwal"
   - title: "Reinforcement Learning Part 5: Monte Carlo Learning"
     link: "https://medium.com/@arjunagarwal899/reinforcement-learning-part-5-monte-carlo-learning-3073014879b5?source=rss-82954e624086------2"
     pubDate: "Wed, 12 Nov 2025 03:44:28 GMT"
