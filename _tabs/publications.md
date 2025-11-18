@@ -146,8 +146,9 @@ order: 2
 
 - **U.S. Patent and Trademark Office** & **Indian Patent Office**\\
   **A System and Method for Detecting Large Vessel Occlusion (LVO) on a Computational Tomography Angiogram (CTA) Automatically**\\
-  US: US-11967079-B1. Issued 23rd Apr 2024\\
-  India: 563364. Issued 25th Mar 2025
+  Inventors: **Arjun Agarwal**, Shubham Kumar, Satish Golla, Swetha Tanamala, Preetham Putha, Sasank Chilamkurty, Prashant Warier\\
+  <a href="https://ppubs.uspto.gov/pubwebapp/static/pages/ppubsbasic.html" style="color: inherit; !important; border-bottom: none !important;">US: US-11967079-B1. Issued 23rd Apr 2024</a>\\
+  <a href="https://iprsearch.ipindia.gov.in/PublicSearch/" style="color: inherit; !important; border-bottom: none !important;">India: 563364. Issued 25th Mar 2025</a>
 
 ---
 
