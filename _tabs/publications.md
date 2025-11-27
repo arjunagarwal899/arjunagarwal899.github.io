@@ -2,7 +2,7 @@
 layout: page
 title: "Publications"
 icon: fas fa-newspaper
-order: 2
+order: 4
 ---
 
 <style>

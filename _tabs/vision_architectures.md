@@ -2,7 +2,7 @@
 layout: page
 title: "Vision Architectures"
 icon: fas fa-code
-order: 3
+order: 6
 ---
 
 <script>

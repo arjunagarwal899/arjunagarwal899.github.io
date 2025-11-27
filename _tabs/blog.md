@@ -1,8 +1,8 @@
 ---
 layout: blog
-# title: Blog
+title: Blog
 icon: fas fa-user-pen
-order: 1
+order: 3
 # description: "My latest thoughts and insights on AI, machine learning, and technology - automatically synced from Medium."
 ---
 
