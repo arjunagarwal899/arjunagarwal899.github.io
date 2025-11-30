@@ -113,7 +113,13 @@ Responsibility
 ### Projects
 
 
-#### #) Data & Annotations
+<!-- #### #) Stroke Imaging Intelligence (qER)
+- Task:
+- Method: 
+- Impact: 
+- Collaboration:  -->
+
+#### 1) Data & Annotations
 **Summary:** Own the data acquisition, curation, and annotation programs for two CT-first, multimodal products, safeguarding **30+ TB** of vendor, research, and client data (arriving via S3 buckets, other cloud shares, and literal hard-drive shipments) while transforming every raw submission into a **standardized, analysis-ready corpus**. Built an end-to-end operating model—from ingestion and metadata modeling to annotation orchestration and QA—that keeps R&D unblocked, gives product teams instant visibility into data readiness, and sustains high annotator satisfaction even as volume exploded.
 
 <details class="collapsible-point">
@@ -184,7 +190,7 @@ Ask me relevant questions to improve upon this as I may have forgotten certain t
  -->
 
 
-#### #) Production Codebase
+#### 2) Production Codebase
 **Summary:** Architected and own a production‑grade AI pipeline framework for head CT/CTA/MRI triage that reduced turnaround time by **57%**, increased automated test coverage from **22% → 91%**, cut new‑model integration time from **~8 days → ~1 day**, and dropped configuration errors from **~700/year → 0/year** along with processing errors from **~500/year → 2/year**.
 
 
@@ -288,13 +294,7 @@ After this, I have only mentored and reviewed code for this. The rest of the tea
  -->
 
 
-
-#### #) Multi-class Classification & Semantic Segmentation
-- Task:
-- Method: 
-- Impact: 
-- Collaboration: 
-
+<!-- 
 #### #) Generative Models
 - Task:
 - Method: 
@@ -316,4 +316,4 @@ After this, I have only mentored and reviewed code for this. The rest of the tea
 
 ### Publications
 - Link to [All Publications]({{ site.baseurl }}{% link _tabs/publications.md %})
-- Link to [Blog]({{ site.baseurl }}{% link _tabs/blog.md %})
+- Link to [Blog]({{ site.baseurl }}{% link _tabs/blog.md %}) -->
