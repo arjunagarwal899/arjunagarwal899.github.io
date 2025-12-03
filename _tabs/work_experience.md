@@ -49,7 +49,7 @@ order: 1
     margin-right: 0.15rem;
     transition: transform 0.2s ease;
   }
-  .collapsible-point[open] summary::before {
+  .a[open] summary::before {
     content: '\25BC';
   }
   .collapsible-point__preview {
@@ -100,26 +100,129 @@ order: 1
   </tr>
   <tr>
     <td>AI Scientist</td>
-    <td>Internship</td>
+    <td>Novice (pre-grad full-time)</td>
     <td><i class="fas fa-calendar"></i> &nbsp; Jul 2021 - Jun 2022</td>
     <td><i class="fas fa-clock"></i> &nbsp; 1 year</td>
   </tr>
 </table>
 
 ### Overview
-Responsibility
+TODO
 
 
 ### Projects
 
 
-<!-- #### #) Stroke Imaging Intelligence (qER)
-- Task:
-- Method: 
-- Impact: 
-- Collaboration:  -->
+#### #) Stroke and Trauma Imaging Intelligence (qER)
+**Summary:** Progressed from a novice AI scientist to qER’s R&D lead by scaling supervised computer-vision programs across NCCT/CTA/trauma datasets, owning supervised fine-tuning and transfer-learning pipelines, and converting those models plus their experimentation stack into multi-region FDA/CE releases, peer-reviewed papers, patents, and the $100K Johnson & Johnson Japan QuickFire grant.
+**Mission:** Convert the chaos of incoming stroke/trauma imaging into rapid, data-backed triage decisions—NCCT infarct core, CTA LVO, perfusion surrogates, trauma alerts—while equipping ER and hub-spoke teams with the context they need to cut door-to-needle time.
 
-#### 1) Data & Annotations
+<details class="collapsible-point">
+  <summary><strong>Clinical Coverage</strong>: <span class="collapsible-point__preview">MRI DWI, NCCT core/penumbra, CTA LVO, trauma suite</span></summary>
+  <div class="collapsible-point__content" markdown="1">
+  - Built and productionized models that span the entire acute stroke journey: NCCT acute/hyperacute infarct classification & segmentation, CTA large-vessel occlusion detection/localization, NCCT-derived perfusion surrogates (core/penumbra), ASPECTS scoring assist, gaze deviation assessment, plus trauma detections (intracranial hemorrhage classes, midline indicators, fractures via teammates) to cover the same ER workflow.
+  - Early projects included a DWI/ADC infarct segmentation UNet (Dice ≈ 0.70) that served as my ML foundation even though it was later shelved, giving me MRI domain familiarity when CT-first models took over.
+  - Partnered with product & hospital innovation teams to extend the suite into coordination tools that link spoke hospitals to thrombectomy hubs, standardize hand-offs, and shorten door-to-needle times—a differentiator beyond raw model outputs.
+  - Curated ~140k NCCT studies (sourced via pan-India teleradiology partners) for classification models, carved out ~10k radiologist-annotated scans for all stroke/trauma segmentations, and spun up nimble ~1k-scan datasets for utility models (cranium classifier, intracranial volume) plus research/regulatory holdouts covering new geographies.
+  - Designed and published a mechanical thrombectomy likelihood model that fuses NIHSS-like pre-clinical scores, demographics (age, last-known-well), and NCCT-derived biomarkers (infarct volume, ASPECTS). It now acts as an upstream signal for hub-and-spoke coordination and is published as a full paper.
+  </div>
+</details>
+
+<details class="collapsible-point">
+  <summary><strong>Model Portfolio &amp; Metrics</strong>: <span class="collapsible-point__preview">Infarct AUC 0.85–0.92, LVO AUC 0.98, DSC 0.75+</span></summary>
+  <div class="collapsible-point__content" markdown="1">
+  - **NCCT acute/hyperacute infarct**: ensemble of classification heads (AUC 0.85–0.92 on ~140k scans) plus segmentation models (Dice 0.30–0.75) using CNN, transformer, and hybrid encoder families (ResNet/SE-ResNet, ConvNeXt, EfficientNetV2, 3D SwinV2, 3D MaxViT) with UNet/UPerNet/ConvLSTM decoders; best variants are published and deployed.
+  - **CTA LVO pipeline (patented & deployed globally)**: multi-stage stack combining cranium isolation, ANTsPy-based tilt correction, intracranial volume extraction, vascular-territory segmentation, MCA occlusion detection via 2D CNNs on MIPs, and ICA patch classifiers—achieving AUC ≈ 0.98 and segmentation Dice ≥ 0.95.
+  - **Core & penumbra on NCCT**: novel segmentation leveraging CT-perfusion ground truth; currently in patent filing/clinical validation with Dice > 0.30 even against noisy perfusion labels, positioning NCCT-only workflows to mimic perfusion decisions.
+  - **Gaze deviation estimation**: eye/lens segmentation (Dice 0.88) feeding geometric gaze-angle computation aligned with NIHSS; research published even though not commercialized yet.
+  - **ASPECTS post-processing**: added region-level smoothing and rule-based corrections atop a colleague’s model, cutting mean absolute ASPECTS error by 36% (2.5 → 1.6).
+  - **ICH classification assist**: co-designed augmentation strategies and ensemble logic for the hemorrhage detector that shipped inside qER Trauma.
+  </div>
+</details>
+
+<details class="collapsible-point">
+  <summary><strong>Architecture &amp; Experimentation</strong>: <span class="collapsible-point__preview">2D/3D FCNs, transformers, MONAI, ClearML</span></summary>
+  <div class="collapsible-point__content" markdown="1">
+  - Ran large-scale sweeps across 2D FCNs, 3D FCNs, 2D backbones with 3D adaptors, transformer-only encoders (ViT, SwinV2), hybrid stacks like Swin-UNETR, and ConvLSTM heads to balance accuracy vs. latency for ER deployments.
+  - Standardized experimentation on MONAI + ClearML plus an in-house `vision_architectures` library I authored to provide production-grade implementations of 3D transformer/convolutional networks that the open-source ecosystem lacked.
+  - Built a stratified evaluation harness that auto-generates ROC/PR plots, per-stratum metrics, and threshold deltas between candidate models so stakeholders can see the clinical trade-offs quickly—slashing unmeasured but substantial iteration cycles.
+  </div>
+</details>
+
+<details class="collapsible-point">
+  <summary><strong>Workflow &amp; Stakeholder Enablement</strong>: <span class="collapsible-point__preview">Hub-spoke orchestration, analysis toolkit</span></summary>
+  <div class="collapsible-point__content" markdown="1">
+  - Provided structured AI outputs, occlusion maps, and confidence overlays that platform teams wired into dashboards/notifications for spoke↔hub coordination, while I stayed focused on the underlying models.
+  - Partnered with Johnson & Johnson Japan on deploying these outputs into their Smart Healthy Aging Initiative QuickFire pilots—winning the $100K grant and international recognition ([news](https://www.qure.ai/news_press_coverages/qure-ai-wins-japan-smart-healthy-aging-initiative-quickfire-challenge-organized-by-johnson-johnson-innovation), [press](https://www.auntminnie.com/clinical-news/ct/article/15633781/qureai-wins-japan-quickfire-challenge)).
+  </div>
+</details>
+
+<details class="collapsible-point">
+  <summary><strong>Regulatory &amp; Publication Footprint</strong>: <span class="collapsible-point__preview">FDA/CE wins, journals, patent</span></summary>
+  <div class="collapsible-point__content" markdown="1">
+  - Led the latest FDA 510(k) submission (CTA LVO) end-to-end—owning retrospective reader studies, operating-point selection (sensitivity/specificity), and documentation—which cleared in 3.5 months, our fastest turnaround ever.
+  - Serve as primary owner for CE MDR/MDSAP and other regional filings; earlier FDA packages saw me in a supporting role, now I represent R&D on the pivotal ones.
+  - Co-authored peer-reviewed papers and conference talks covering infarct detection, LVO detection, perfusion surrogates, gaze deviation, and the thrombectomy-likelihood model (ICCVW, WSC, ASFNR, etc.).
+  - Named inventor on the U.S./India patent for automated LVO detection on CTA; additional IP filings (e.g., core/penumbra on NCCT) are underway.
+  </div>
+</details>
+
+<details class="collapsible-point">
+  <summary><strong>Role Evolution &amp; Collaboration</strong>: <span class="collapsible-point__preview">Novice → lead, mentoring juniors</span></summary>
+  <div class="collapsible-point__content" markdown="1">
+  - Started as a novice AI Scientist (full-time while still in school) with two mentors, rapidly took ownership of stroke ML deliverables, and was promoted directly to Level 2 upon graduation because I was already operating as a full-time contributor.
+  - Drove cross-functional delivery with product managers, clinical advisors, data teams, and hospital partners to translate experimental models into regulated releases.
+  - Continue to mentor newer scientists on experimentation hygiene, architecture choices, and deployment readiness, while transitioning some responsibilities to lung-cancer initiatives.
+  </div>
+</details>
+
+<!-- Prompt:
+
+Let's draft the Stroke and Trauma Imaging Intelligence section. Just like before, this website will mostly be visited by recruiters and colleagues, so write it accordingly. There is a separete resume that I am providing to recruiters where I will only include the main points concisely, so there are no such restrictions here, be as verbose as you would like. Make it professional and unambiguous while appealing to recruiters (i.e. HR as well as tech folks). 
+I started of with this product when I joined the company. I was a newbie then so did not know much with very little machine learning experience. In this, the overarching problem statement is to detect stroke in a timely manner at emergency care departments in hospitals. Part of this detection involves accurate identification of stroke indicators on the NCCT scan, identification of large vessel occlusions on CTA scans, and possible predictions of perfusion parameters on NCCTs as best as possible. Apart from these machine learning models, I helped in building a platform to aid coordination between different stakeholders at the hospital to reduce door-to-needle times of the patient and enabling hub and spoke based models. Ther eis also a trauma suite which ties into this where intracranial bleeds, midline shift, mass effect, and cranium fractures are detected in an emergency setting using NCCT.
+- Trained a semantic segmentation model using a basic UNet architecture to identify infarcts on head mri scans using dwi and adc scans. This was my first project and introduction to machine learning. The Dice coefficient was 0.7. This project was not continued further.
+- Trained multiple acute infarct and hyperacute infarct classification models on NCCT. AUCs of 0.85-0.92. Trained multiple acute infarct and hyperacute infarct segmentation models on NCCT. Dice coefficients of 0.3-0.75. Used multiple architectures (CNN, transformer, and hybrid architectures: resnet, convnext, efficientnetv2, seresnet, 3d swinv2, 3d maxvit encoders; unet, upernet overall architectures, convlstm). The best of these models are published and currently in production.
+- Trained a classiifcation + detection algorithm by stacking and combining five 2D based cnn based models and image registration using ants to identify and localize occlusions in the large vessels on head ct angiography scans. This is patented, published, and deployed across all sites. The first step involves cranium classification that isolates only the cranium region in an entire ct scan. Following this we perform registration for tilt correction and scan standardization. The second step involves segmenting the intracraniul volume of the head to get rid of bones, especially the carotid canal. The third step involves splitting the intracranial volume into different vascular territories (i.e. splitting it into different sections based on their source of blood eg. pca, aca, mca, etc.). The fourth step involves two models, one that detects occlusions in the mca region of the brain after taking a maximum intensity projection (MIP) along the z axis, and the other that classifies ica occlusion using a patch based classifier on each of the slices involving the ica. The average AUC of classification models is 0.98, DSC of segmentation models is 0.95+.
+- Trained a core and penumbra segmentation model on NCCT with CT perfusion ground truth. Currently being patented, will then undergo clinical validation before being deployed. DSC of >0.3 (don't have exact number due to noisy ground truth, however DSC is definitely more than this). Completely novel idea that can change medical guidelines lobally if successful.
+- Trained a gaze deviation model that identifies whether the patient is able to hold their gaze straight in the CT scan as part of NIHSS guidenlines that implies that preference of one sided-gaze is a symptom of stroke. Model segments the eye as well as the lens and obtains the angle of the gaze. DSC of 0.88. The presence of deviation in the scan has been published. This model is not deployed due to lack of interest as this is not standard protocol in the stroke pathway.
+- Added post processing to an aspects model (trained by a colleague) that accurately segments the different aspects regions in the brain, reducing mean deviation of predicted ASPECT score by 36%.
+- Assisted colleague in making intracranial hemorrhage classification model by helping with ensembling of multiple models with different types of data augmentations and architectures.
+- Did not work on midline shift, mass effect, or cranial fracture models at all. Don't mention.
+- Created framework that allowed fast testing of models based on different stratifications increasing development cycle speed (unmeasured). It has fast visualizations of roc curves, calculations of all classification metrics for different stratas defined dynamically along with threshold-based comparisons for two different models showing actual benefit of one model over the other.
+- Worked on a grant from Johnson and Johnson Japan and won 100k usd in funding.
+- Achieved multiple fda approvals, ce approvals, and other regulatory learances for multiple features of this product, published full-length research papers, and presented and multiple conference proceedings. Also have a patent registered in India and USA for the CTA product as mentioned before.
+
+Ask me relevant questions to improve upon this as I may have forgotten certain tools or ideas that I may have used. If you ask me some commonly used tools that one may use for this I can tell you so that you can update this. Also, feel free to modify the structure of the project so it's better to read.
+
+---
+
+Instead of intern, say "novice" or something similar. In interviews I will be syaing that my title was "intern" only because I had still not graduated, however I was still working full-time at Qure which is why I was promoted directly to level 2 when I graduated.
+
+Some more questions you may have:
+Metrics precision: Do you have exact Dice or AUC numbers you'd like to cite for the core/penumbra model, or should we keep it as ">0.30"? Same for the ASPECTS improvement—was it "36% reduction in mean absolute error" or "36% reduction in incorrect scores"?
+Tooling stack: Beyond MONAI, ClearML, and ANTsPy, did you use any other notable libraries (e.g., TorchIO, NiBabel, SimpleITK, nnU‑Net baseline comparisons)?
+Data scale: Roughly how many scans or patients were you training on (e.g., "trained on X,000 NCCT studies from Y sites")? Even ballpark numbers add credibility.
+Clinical validation: For the models that are FDA‑cleared, were there prospective or retrospective validation studies you contributed to (reader studies, sensitivity/specificity at specific operating points)?
+Grant details: Was the J&J grant for a specific sub‑project (e.g., perfusion prediction, gaze deviation) or the overall platform? Any public info to link?
+Hub‑spoke platform: Was your role purely on the AI models, or did you also contribute to the coordination‑platform code (e.g., dashboards, notification logic)?
+Timeline: You mentioned ~3 years (intern Jul 2021 – presumably mid‑2024?). Should we note that explicitly, or leave it implicit via the Title History table?
+
+Answers:
+1. I only have >0.3 with 0.3 on noisy ground truth. It is 36% reduction in mean absolute error between actual ASPECTS and predicted ASPECTS.
+2. there are a lot of libraries used throughout my time at qure. Listing all of them here, you can extract relevant ones and put here: albumentations, antspy, black, clearml, confidenceinterval, pycoverage, dataframe_image, deepdiff, efficientnet_pytorch, einops, fastparquet, flake8, gemini, google-genai, huggingface-hub, hydra-core, ipykernel, ipywidgets, isort, jupyter, loguru, matplotlib, mergedeep, monai, nbconvert, nbdev, numpy, numba, nvitop, omegaconf, onnx, opencv-python, openpyxl, pandas, pillow, plotly, polars, portkey-ai, pre-commit, prettytable, pydantic, pydicom, pymongo, pytest, pytest-cov, pytest-lazy-fixtures, lightning, redbrick, redbrick-sdk, requests, rich, safetensors, scikit-learn, scikit-image, scipy, seaborn, segmentation_models_pytorch, SimpleITK, slack_sdk, sphinx, tabulate, swifter, tensorboard, termcolor, timm, tokenizers, transformers, torch, torchmetrcs, torchsummary, torchvision, torchview, tqdm
+3. Scale of data varied for each model. For classification we had about 140k NCCT scans from all over India (purchased from a teleradiology center so varied locations). For segmentations we obtained annotations ourselves from radiologists so we had about 10k scans which was a subset of the 140k scans. We also created a robust test set from various research studies and regulatory clearances. For utility models like cranium classifier and intracranial volume segmentation we only need around 1000 scans annotated which we easily did ourselves.
+4. Yes the studies done for FDA clearances were done by us only with me taking lead in the latest one. This clearance was our fastest one ever with a turnaround time of 3.5 months from submitting the documents to getting cleared. Similarly I was lead on submissions for CE, MDR/MDSAP and other regulatory bodies. I only played an assisting role in all other FDA clearances.
+5. This was granted for timely detection of stroke involving the NCCT infarct and CTA LVO models. It was for further development of these models and mostly for the entire platform. Public links: https://www.qure.ai/news_press_coverages/qure-ai-wins-japan-smart-healthy-aging-initiative-quickfire-challenge-organized-by-johnson-johnson-innovation https://www.auntminnie.com/clinical-news/ct/article/15633781/qureai-wins-japan-quickfire-challenge 
+6. My role was primarily in AI models. The rest of the my contributions have already been mentioned under other projects such as data & annotations and production codebase and need not be specified here.
+7. Need not mention here
+
+Also, I also created a model that predicts the likelihood of a patient needing mechanical thrombectomy based on the pre-clinical stroke score (like NIHSS), clinical factors such as age, last known well time, etc., and the parameters obtained from the NCCT (eg. infarct volume, aspects score). This has currently been published as a full paper too. Add this to the file too if it makes sense.
+Also the summary feels like it's talking too much about the problem statement and not enough of what I have done, especially from a technical angle. Shorten what has currently been written and talk more about the things I have done and learnt here from the perspective of a recruiter for AI scientists i.e. computer vision, problem solving, etc.
+
+ -->
+
+
+#### #) Data & Annotations
 **Summary:** Own the data acquisition, curation, and annotation programs for two CT-first, multimodal products, safeguarding **30+ TB** of vendor, research, and client data (arriving via S3 buckets, other cloud shares, and literal hard-drive shipments) while transforming every raw submission into a **standardized, analysis-ready corpus**. Built an end-to-end operating model—from ingestion and metadata modeling to annotation orchestration and QA—that keeps R&D unblocked, gives product teams instant visibility into data readiness, and sustains high annotator satisfaction even as volume exploded.
 
 <details class="collapsible-point">
@@ -190,7 +293,7 @@ Ask me relevant questions to improve upon this as I may have forgotten certain t
  -->
 
 
-#### 2) Production Codebase
+#### #) Production Codebase
 **Summary:** Architected and own a production‑grade AI pipeline framework for head CT/CTA/MRI triage that reduced turnaround time by **57%**, increased automated test coverage from **22% → 91%**, cut new‑model integration time from **~8 days → ~1 day**, and dropped configuration errors from **~700/year → 0/year** along with processing errors from **~500/year → 2/year**.
 
 
@@ -311,9 +414,9 @@ After this, I have only mentored and reviewed code for this. The rest of the tea
 - Task:
 - Method: 
 - Impact: 
-- Collaboration: 
+- Collaboration:  -->
 
 
 ### Publications
 - Link to [All Publications]({{ site.baseurl }}{% link _tabs/publications.md %})
-- Link to [Blog]({{ site.baseurl }}{% link _tabs/blog.md %}) -->
+- Link to [Blog]({{ site.baseurl }}{% link _tabs/blog.md %})
