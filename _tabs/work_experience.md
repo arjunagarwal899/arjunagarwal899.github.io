@@ -99,8 +99,8 @@ order: 1
     <td><i class="fas fa-clock"></i> &nbsp; 1 year 9 months</td>
   </tr>
   <tr>
-    <td>AI Scientist</td>
-    <td>Novice (pre-grad full-time)</td>
+    <td>AI Scientist Intern</td>
+    <td>Full-time (pre-grad)</td>
     <td><i class="fas fa-calendar"></i> &nbsp; Jul 2021 - Jun 2022</td>
     <td><i class="fas fa-clock"></i> &nbsp; 1 year</td>
   </tr>
@@ -111,6 +111,81 @@ TODO
 
 
 ### Projects
+
+
+#### #) Lung Cancer AI Platform (qCT)
+**Summary:** Joined the lung-cancer initiative in 2024 to transplant my supervised computer-vision toolkit into a multimodal CT/PET pipeline, strengthening nodule characterization, detection research, and malignancy-risk modeling while mentoring junior scientists and keeping the product’s data health visible via automated observability hooks.
+**Mission:** Help radiologists, pulmonologists, and thoracic surgeons surface clinically urgent nodules early—whether discovered on LDCT screening, PET/CT follow-ups, or incidental findings—and feed them consistent rankings, visualizations, and risk scores that accelerate reporting and patient routing.
+
+<details class="collapsible-point">
+  <summary><strong>Scope &amp; Tooling</strong>: <span class="collapsible-point__preview">CT-first remit, multimodal inputs</span></summary>
+  <div class="collapsible-point__content" markdown="1">
+  - Focus on the CT/PET portion of the platform while sister teams specialize on X-ray-first screening; collaborate on shared annotations and cross-modality heuristics so nodules discovered on X-ray can be traced on CT follow-ups.
+  - Curated ~22k labeled nodules with multiple reads for characteristic classification, ~27k LDCT nodules for detection research, and continue to expand with CT/PET-CT pairs, biopsy notes, and longitudinal CT reports for malignancy risk modeling.
+  </div>
+</details>
+
+<details class="collapsible-point">
+  <summary><strong>Nodule Characteristics &amp; Ranking</strong>: <span class="collapsible-point__preview">Calcification AUC 0.97, spiculation 0.84</span></summary>
+  <div class="collapsible-point__content" markdown="1">
+  - Raised **calcification classification AUC from 0.93 → 0.97** (sensitivity/specificity 0.94/0.76 → 0.93/0.96) by cleaning the 22k-nodule dataset, smarter sampling of datapoints, Hu value heuristics, and using an inverse-frequency class-balanced cross entropy loss of my own making. Model is live in production.
+  - Boosted **spiculation classification AUC from 0.80 → 0.84** (sensitivity/specificity 0.57/0.87 → 0.60/0.91) by treating it as a regression problem, introducing a context crop of better understanding of the presence of the abnormality, and using the same inverse-frequency class-balanced cross entropy loss as calcification. Model is live in production.
+  <!-- - Investigated texture (solid / part-solid / ground-glass) classification; although accuracy parity wasn’t met, the work produced reusable labeling templates and calibration scripts for the next iteration once more data is collected. -->
+  - Designed a ranking engine that scores nodules by clinical urgency using calcification, spiculation, texture, juxta-pleural/perifissural location, diameter, and volume; radiologists now rely on its ordered worklist during reporting sessions, noting markedly faster prioritization even without a historical baseline.
+  </div>
+</details>
+
+<details class="collapsible-point">
+  <summary><strong>Detection Research &amp; Evaluation</strong>: <span class="collapsible-point__preview">DETR + Swin/ViT3D, custom 3D mAP</span></summary>
+  <div class="collapsible-point__content" markdown="1">
+  - Prototyped DETR and Deformable DETR pipelines with SwinV2-3D and ViT-3D backbones to replace the legacy RetinaNet detector, moving beyond the old precision/recall-only checks by implementing bespoke **3D mAP/mAR** metrics and IoU thresholds that respect anisotropic CT voxels.
+  - Demonstrated that limited (27k) noisy LDCT annotations capped DETR’s gains, documenting the data/label gaps and handing the evaluation harness to the next cycle so the team can quickly re-test when scale improves.
+  - Hardened the existing RetinaNet pipeline by backporting the new evaluation suite, giving product managers clearer launch criteria for newer models even though the DETR track was paused. <!-- Which means that the new mAP and mAR metric implementations were applied on the existing RetinaNet model to keep metrics tracking consistent so that we can compare new models easily. -->
+  </div>
+</details>
+
+<details class="collapsible-point">
+  <summary><strong>Emerging Models &amp; Multimodal Research</strong>: <span class="collapsible-point__preview">Gemini trials, malignancy score, PET/CT fusion</span></summary>
+  <div class="collapsible-point__content" markdown="1">
+  - Explored Gemini Pro via Portkey/OpenAI APIs to classify nodules and filter confounders directly from CT slice stacks; documented the modality mismatch (2D/video inputs vs. 3D HU volumes) and why the approach underperformed compared to the X-ray team’s success, saving future cycles.
+  - Currently architecting a proprietary lung-nodule malignancy score that fuses PET-CT uptake patterns, CT morphometrics <!-- size and shape -->, biopsy outcomes, and longitudinal reports; work is under wraps until patents/publications land, but the data contracts, schemas, and training scaffolds are ready.
+  </div>
+</details>
+
+<details class="collapsible-point">
+  <summary><strong>Visualization &amp; Monitoring</strong>: <span class="collapsible-point__preview">CT→X-ray projection, Grafana signals</span></summary>
+  <div class="collapsible-point__content" markdown="1">
+  - Adapted an internal CT-to-X-ray projection algorithm (using the efficiency of CUDA shared objects) to denoise scans, strip patient-table artifacts, and render realistic projections that highlight detected nodules for customer demos and follow-up planning.
+  - Established a weekly Grafana-driven digest with product managers that surfaces client input distributions (scanner types, slice thickness, LDCT vs. diagnostic CT ratios) so product and data teams spot drift before it hits model performance.
+  </div>
+</details>
+
+<details class="collapsible-point">
+  <summary><strong>Leadership &amp; Collaboration</strong>: <span class="collapsible-point__preview">Supervisory role, CT↔X-ray alignment</span></summary>
+  <div class="collapsible-point__content" markdown="1">
+  - Operate in a supervisory capacity, guiding junior scientists on experimentation hygiene, reviewing their PRs, and aligning CT-model deliverables with client commitments while X-ray peers tackle parallel milestones.
+  - Partner with clinicians, product strategists, and the CT/PET-CT research pod to ensure every model spec maps to a real reporting constraint, whether that’s screening-camp throughput or early detection and management of lung cancer.
+  </div>
+</details>
+
+
+<!-- Prompt:
+
+Let's draft the Lung Cancer section. Just like before, this website will mostly be visited by recruiters and colleagues, so write it accordingly. There is a separete resume that I am providing to recruiters where I will only include the main points concisely, so there are no such restrictions here, be as verbose as you would like. Make it professional and unambiguous while appealing to recruiters (i.e. HR as well as tech folks). 
+This is a project I joined recently (last year). It is quite different from my previous product (stroke) and works with multimodal data (X rays, chest ct scans and pet scans). The overarching goal is to assist radiologists in efficient reporting of lung nodules on chest ct scans, assist pulmonologists and thoracic surgeons in early detection of lung cancer patients at screening camps or finding them incidentally in x rays (which are the most commonly taken radiological modality) or in ct scans and then having regular follow ups. I work solely on the ct side of things with colleagues while a section of the team works solely on the xray side. 
+- Trained nodule characteristics models. Increased nodule calcification classification AUC from 0.93 to 0.97. (sen spec increase from 0.94, 0.76 to 0.93, 0.96). Increased nodule spiculation classification AUC from 0.8 to 0.84 (sen spec increase from 0.57, 0.87 to 0.6, 0.91). These two models are currently in production. Trained a model to improve nodule texture classification too (i.e. solid part solid and ground glass) but the model did not improve on performance and therefore is not productized. Training data was 22k nodules.
+- Trained a nodule detection model using DETR with SwinV23D/ViT3D backbones. Current pipeline uses RetinaNet to detect nodules. Implemented 3D versions of mAP and mAR for this. DETR, Deformable DETR did not give superior results because of lack of scale in data and noisy data. Training data was limited to 27k nodules, mostly on LDCT scans. This track was terminated.
+- Created an algorithm on ranking nodules based on clinical importance given the nodule's size and certain characteristics. Nodule ranking achieved TODO metric. Since this was done for the first time there is no prior to compare to, however metrics are excellent with positive radiologist feedback. Characteristics include calcification spiculation texture juxtapleural perifissural diameter volume.
+- Tried using Gemini pro 3 with openai api on portkey to build a nodule characteristics classification model. Gemini was unable to do well with all kinds of prompts and samples. Tried the same to differentiate between nodules and other confounders, similar results. Probably because Gemini is not well versed with CT scans, especially reading 3D scans is difficult and as it takes only 2D inputs or videos, providing 3D ct scans as videos or multiple images was not something it was ever expecting giving poor results. This approach worked decently well for the xray team which led us to explore this avenue.
+- Worked on XRay projection given a CT scan to visualize the location of nodules in the lung to show to clients in the product. This involved denoising the ct scan, removing artifacts such as the bed, and then taking point projection of the CT scan to get a realistic xray. Algorithm was developed by another team but was adapted for this usecase by me. Worked with cuda shared object code for this. 
+- Working more as a supervisory role in this product, guiding juniors to build new models while focusing on product strategy and niche models that require tight coupling with client expectations and product requirements.
+- Set up a weekly message showing input data distribution from clients using grafana.
+- Currently working on a proprietary novel lung nodule malignancy score that predicts the likelihood of a nodule being malignant in the ct scan. Exploring multiple avenues within this which I can't share more right now as its still early to reveal (without publications and patents). Working with PET CT, CT, biopsy reports, CT reports, and potentially xrays for this feature.
+Tools remain the same as from stroke including clearml monai vision architectures etc. We also use safetensors here extensively.
+
+Ask me relevant questions to improve upon this as I may have forgotten certain tools or ideas that I may have used. If you ask me some commonly used tools that one may use for this I can tell you so that you can update this. Also, feel free to modify the structure of the project so it's better to read.
+
+ -->
 
 
 #### #) Stroke and Trauma Imaging Intelligence (qER)
@@ -397,8 +472,8 @@ After this, I have only mentored and reviewed code for this. The rest of the tea
  -->
 
 
-<!-- 
-#### #) Generative Models
+
+<!-- #### #) Generative Models
 - Task:
 - Method: 
 - Impact: 
