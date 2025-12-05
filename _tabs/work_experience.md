@@ -107,10 +107,65 @@ order: 1
 </table>
 
 ### Overview
-TODO
+TODO Overview
 
 
 ### Projects
+
+
+#### #) 3D Foundation Models
+**Summary:** Incubated a CT-native foundation backbone that pretrains once on heterogeneous neuro/chest datasets with the aim of accelerating every downstream task: stroke, lung cancer, and other products we may venture into (such as COPD, CaC, PH, etc.), by shipping reusable 3D representations instead of rebuilding encoders per project.
+**Mission:** Deliver a general-purpose, attention-first 3D encoder that trims labeled-data needs, boosts transfer learning reliability, and plugs seamlessly into multimodal stacks so new CT products hit production faster.
+
+<details class="collapsible-point">
+  <summary><strong>Scope &amp; Architecture</strong>: <span class="collapsible-point__preview">SwinV2-3D, MaxViT, SimMIM + MedCLIP</span></summary>
+  <div class="collapsible-point__content" markdown="1">
+  - Selected **SwinV2-3D** and **MaxViT** backbones because their hierarchical attention windows preserve global spatial context and are future-proof for cross-modality fusion (e.g., PET+CT) while remaining trainable on limited GPUs.
+  - Pretrained with a dual objective: **SimMIM** for masked-volume reconstruction and **MedCLIP-style contrastive learning** against paired and unpaired reports, striking a balance between structural understanding and semantic alignment without requiring curated labels.
+  - Aggregated CT cohorts spanning the entire body so the encoder internalizes anatomy beyond targeted datasets.
+  </div>
+</details>
+
+<details class="collapsible-point">
+  <summary><strong>Training Strategy</strong>: <span class="collapsible-point__preview">Memory-aware parallelism for 512³ scans</span></summary>
+  <div class="collapsible-point__content" markdown="1">
+  - Diagnosed how CT foundation-model training inverts the usual LLM/computer-vision memory profile: instead of 10B+ parameter models (~37 GB in FP32) ingesting tiny <4 MB token streams, we run “small” million-parameter (<3 GB) encoders against **512³ voxel inputs (~512 MB each)**, and the published fixes mostly downsample to 2D slices—destroying the 3D context we actually need.
+  - Solved that imbalance by layering **tensor-splitting parallelism** (to keep intermediate conv buffers from exploding), **activation checkpointing** (to drop and recompute giant activations), and **pipeline parallelism** (to shard models/activations across GPUs while trading batch-size gains from vanilla DDP). Together they let the full volumes flow without resorting to lossy cropping/resizing tricks.
+  - Benchmarked throughput vs. quality to ensure these tricks delivered net-positive wall-clock time compared to naive cropping/resizing approaches that would have lost 3D context.
+  </div>
+</details>
+
+<details class="collapsible-point">
+  <summary><strong>Downstream Impact</strong>: <span class="collapsible-point__preview">Stroke AUC +0.02, DSC +0.07</span></summary>
+  <div class="collapsible-point__content" markdown="1">
+  - Fine-tuning the foundation encoder on stroke tasks lifted **acute/hyperacute infarct classification AUC from 0.92 → 0.94** and **segmentation Dice from 0.68 → 0.75**, confirming the backbone excels at discriminative features as the pretext tasks emphasize reconstruction/contrastive signals.
+  - The improved convergence speed translated into materially faster experimentation cycles and lower labeled-data demand for existing problem statements.
+  </div>
+</details>
+
+<details class="collapsible-point">
+  <summary><strong>Explorations &amp; Hand-offs</strong>: <span class="collapsible-point__preview">Perceiver trials, sister-team 2D MAE</span></summary>
+  <div class="collapsible-point__content" markdown="1">
+  - Investigated a perceiver-style VAE to map arbitrary CT volumes (ranging from 32×384×384 to 2000×1024×1024) into fixed-length embeddings. Despite extensive tuning, cross-attention couldn’t retain the high-frequency detail without exploding embedding sizes, so reconstructions stayed mediocre and downstream lifts were negligible.
+  - Paused broader downstream benchmarking to unblock urgent lung-cancer deliverables (nodule characteristics/ranking). A sister team continued foundation work on 2D CT slices with DINOv2 + MAE ViTs, while our 3D weights remain ready for the next wave of volumetric tasks.
+  </div>
+</details>
+
+
+<!-- Prompt:
+
+Let's draft the Foundation models section. Just like before, this website will mostly be visited by recruiters and colleagues, so write it accordingly. There is a separete resume that I am providing to recruiters where I will only include the main points concisely, so there are no such restrictions here, be as verbose as you would like. Make it professional and unambiguous while appealing to recruiters (i.e. HR as well as tech folks). 
+The goal here was to have a strong pretrained three-dimensional (spatial) backbone for all downstream tasks on CT. This involved problem statements in the stroke suite, the lung cancer suite, as well as any new tasks that we may choose to pursue for eg. COPD, pulmonary hypertension, or even non-chest and non-Head CT scans eg. liver cancer in abdomen CTs etc. Building a foundation model had multiple advantages: faster model iteration for downstream tasks, much lesser dependence on labeled data, improved performance due to generalization, faster productization, and the capability to incorporate into multimodal setups down the line.
+- Worked primarily with SwinV2 3D and MaxViT architectures as the base architecture as their use of attention allowed for global context as well as allowing cross modality integration in the future. Their hierarchial formulation allowed for efficient training on datapoints that are as high resolution as CT scans (an average low resolution CT scan is at least 6 times larger than a 4K image).
+- Used SimMIM (masked image modeling) and MedCLIP (contrastive learning based on CLIP) to create the foundation model.
+- Unlike LLMs and infamous computer vision models where models are large (10B+ parameters, 10B parameters in fp32 is 37GB) and input and output streams are tiny (even 1M context length in fp32 implies <4MB), a foundation model for CT scans would involve smaller models (in millions i.e. <3GB) but huge inputs (average CT scan is of shape 512 cube, i.e. 512MB). As most of the research is focused on LLMs and 2D computer vision models, limited research exists on managing memory requirements for medical imaging, where existing research either operates on smaller crops, resizes the images into smaller sizes, or operates in 2D only treating each cross section as a separate datapoint (thereby losing out on very important context in the entire scan). To mitigate this, I worked on multiple methods to resolve this: tensor splitting parallelism (to manage exceedingly high memory usage by intermediate buffers in conv layers), activation checkpointing (to reduce the memory usage used by large activations which are easily recomputable), and pipeline parallelism (to allow for models and activations to be sharded across GPUs trading off on effective batch size gains from ddp). These methods allowed for effective training of the foundation model. 
+- The trained foundation model showed improvements on downstream tasks in stroke: acute and hyperacute infarct classification AUC increased from 0.92 to 0.94, segmentation DSC increased from 0.68 to 0.75. This showcased good performance of the model learning discriminatory features. Model was not expected to learn expressive features as the contrastive and reconstruction tasks did not gear the model towards it.
+- More downstream tasks were planned to be performed but had to pause this as there were immediate product requirements that came up (lung cancer nodule characteristics and ranking). However a sister team continued work on this where they were training 2D foundation models for CT with DinoV2 and MAE using vanilla ViTs (although I was not involved in this).
+- Also tried a perceiver style architecture to map an arbitrary sized CT into a fixed size embedding space using a VAE like setup. However this did not work as well as expected after multiple experiments as the problem statement is too hard for the perceiver to learn as cross attention module is unable to pass on sufficient high frequency information. CT scans can vary anywhere from 32x384x384 to 2000+x1024x1024, and mapping all of these to a fixed dimension was not feasible. The only solution was to model it with a very high embedding dimension which made it infeasible for downstream tasks and redundant in cases of low resolution CTs. The reconstructions were very average and there was far from any improvements on downstream tasks.
+
+Ask me relevant questions to improve upon this as I may have forgotten certain tools or ideas that I may have used. If you ask me some commonly used tools that one may use for this I can tell you so that you can update this. Also, feel free to modify the structure of the project so it's better to read.
+
+ -->
 
 
 #### #) Lung Cancer AI Platform (qCT)
@@ -131,7 +186,7 @@ TODO
   - Raised **calcification classification AUC from 0.93 → 0.97** (sensitivity/specificity 0.94/0.76 → 0.93/0.96) by cleaning the 22k-nodule dataset, smarter sampling of datapoints, Hu value heuristics, and using an inverse-frequency class-balanced cross entropy loss of my own making. Model is live in production.
   - Boosted **spiculation classification AUC from 0.80 → 0.84** (sensitivity/specificity 0.57/0.87 → 0.60/0.91) by treating it as a regression problem, introducing a context crop of better understanding of the presence of the abnormality, and using the same inverse-frequency class-balanced cross entropy loss as calcification. Model is live in production.
   <!-- - Investigated texture (solid / part-solid / ground-glass) classification; although accuracy parity wasn’t met, the work produced reusable labeling templates and calibration scripts for the next iteration once more data is collected. -->
-  - Designed a ranking engine that scores nodules by clinical urgency using calcification, spiculation, texture, juxta-pleural/perifissural location, diameter, and volume; radiologists now rely on its ordered worklist during reporting sessions, noting markedly faster prioritization even without a historical baseline.
+  - Designed a ranking engine that scores nodules by clinical urgency using calcification, spiculation, texture, juxta-pleural/perifissural location, diameter, and volume; radiologists now rely on its ordered worklist during reporting sessions, noting markedly faster prioritization even without a historical baseline. # TODO Metric
   </div>
 </details>
 
@@ -474,12 +529,6 @@ After this, I have only mentored and reviewed code for this. The rest of the tea
 
 
 <!-- #### #) Generative Models
-- Task:
-- Method: 
-- Impact: 
-- Collaboration: 
-
-#### #) 3D Foundation Models
 - Task:
 - Method: 
 - Impact: 
