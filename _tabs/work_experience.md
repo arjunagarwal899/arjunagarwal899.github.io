@@ -113,6 +113,58 @@ TODO Overview
 ### Projects
 
 
+<!-- #### #) Architecture Implementations
+- Task:
+- Method: 
+- Impact: 
+- Collaboration:  -->
+
+
+#### #) Generative AI
+**Summary:** Prototyped CT-native generative pipelines—disease-aware mathematical augmentations, hierarchical VAEs, and latent diffusion planning—to stretch tiny labeled cohorts into statistically useful corpora for stroke and lung cancer research without compromising clinical realism.
+**Mission:** Pair physics-anchored heuristics with modern generative modeling so every downstream model, especially the data-starved core/penumbra stack, benefits from richer edge cases and higher-fidelity reconstructions than raw hospital submissions alone can offer.
+
+<details class="collapsible-point">
+  <summary><strong>Pathophysiologic Augmentations</strong>: <span class="collapsible-point__preview">Hyperacute infarcts, +80% dataset</span></summary>
+  <div class="collapsible-point__content" markdown="1">
+  - Modeled **hyperacute infarcts and core/penumbra surrogates on NCCT** by simulating water-content loss, gray–white blurring, and density drop-offs that mirror early ischemia progression instead of simple copy-paste patches.
+  - Tuned lesion geometry, HU decay, and peri-lesional gradients per presentation so clinicians couldn’t visually separate the synthetic scans from real early-onset cases.
+  - Augmented the scarce perfusion-aligned dataset from ~500 → ~900 scans (**+80% usable volume**) while keeping class balance in check, which materially stabilized the core/penumbra segmentation training described in qER.
+  </div>
+</details>
+
+<details class="collapsible-point">
+  <summary><strong>Hierarchical NVAE Compression</strong>: <span class="collapsible-point__preview">SSIM 0.96, PSNR 36</span></summary>
+  <div class="collapsible-point__content" markdown="1">
+  - Found that a single high-compression VAE bottleneck couldn’t capture CT micro-structure and was prohibitively expensive, so I built a **hierarchical NVAE** trained scale-by-scale to keep per-stage compute tractable.
+  - The staged training unlocked reconstructions with **SSIM ≈ 0.96** and **PSNR ≈ 36 dB**, close enough to source scans for both radiologist review and downstream latent modeling.
+  - This NVAE became the latent workspace for prospective diffusion models, giving us deterministic, high-fidelity encodings without bloating storage or retraining costs.
+  </div>
+</details>
+
+<details class="collapsible-point">
+  <summary><strong>Diffusion Research &amp; Hand-off</strong>: <span class="collapsible-point__preview">MAISI superseded in-flight work</span></summary>
+  <div class="collapsible-point__content" markdown="1">
+  - Began architecting **latent diffusion models per NVAE scale**, but the three-scale design meant any weak diffuser degraded final outputs, making the effort brittle.
+  - When NVIDIA released **MAISI** with an open-source single-scale VAE + latent diffusion combo that matched our fidelity (albeit with lower compression), we retired the in-house diffusion track to avoid redundant maintenance.
+  - Documented our findings and handed the baton to a sister group that focused on controllability and conditioning of MAISI-generated CT volumes for future data-augmentation programs.
+  </div>
+</details>
+
+
+<!-- Prompt:
+
+Let's draft the generative ai section. Just like before, this website will mostly be visited by recruiters and colleagues, so write it accordingly. There is a separete resume that I am providing to recruiters where I will only include the main points concisely, so there are no such restrictions here, be as verbose as you would like. Make it professional and unambiguous while appealing to recruiters (i.e. HR as well as tech folks). 
+The goal here was to enhance our CT datasets with synthetic data as research shows that larger data with synthetic data vaguely matching real data distribution improves model performance.
+- Tried to mimic hyperacute infarcts and core/penumbra (perfusion parameters) on NCCT using mathematical modeling based on how the disease actually occurs i.e. water loss leading to dying tissue, decreased density etc. Worked on making the infarct realistic based on shape and decrease in intensity. Was able to achieve visually realistic hyperacute infarcts for one subset of patients presenting with early onset stroke. This greatly helped the core penumbra model that we trained in the qER section (enhanced the dataset by 80% i.e. total dataset went from ~500 datapoints to 900, could have increased more but then there would be over representation of this type of stroke presentation).
+- Helped colleague in mimicing intracranial bleeds, especially subdural hemorrhages. Not worth mentioning in the document.
+- Worked on training a good variational autoencoder for CTs for dimensional reduction so that we could train a latent diffusion model following that for generation of CTs. However a single variational encoder with high compression was not providing sufficient expressive power as well as was computationally demanding. Reconstructions were poor and not realistic. Instead tried to build a hierarchial variational autoencoder (NVAE) by training each scale of the hierarchy one by one, therefore limiting the amount of ocmpute required for each stage of training. Results were very good and reconstructions were spot-on with high fidelity SSIM of 0.96, PSNR of 36. 
+- Was starting to build latent diffusion models for this. Downside of this was that since there were 3 scales, it required training 3 separate diffusion models which is challenging as poor performance of even one affects final output. Meanwhile NVIDIA released the MAISI paper which provided open source weights for a single scale VAE with equivalent performance to our NVAE (although not as much compression) and a corresponding latent diffusion model which generated sufficiently high fidelity and diversity images, making this track redundant. Work on this track was stopped beyond that and another team took up work on controlling the generated outputs of MAISI.
+
+Ask me relevant questions to improve upon this as I may have forgotten certain tools, metrics, or ideas that I may have used. If you ask me some commonly used tools that one may use for this I can tell you so that you can update this. Also, feel free to modify the structure of the project so it's better to read.
+
+ -->
+
 #### #) 3D Foundation Models
 **Summary:** Incubated a CT-native foundation backbone that pretrains once on heterogeneous neuro/chest datasets with the aim of accelerating every downstream task: stroke, lung cancer, and other products we may venture into (such as COPD, CaC, PH, etc.), by shipping reusable 3D representations instead of rebuilding encoders per project.
 **Mission:** Deliver a general-purpose, attention-first 3D encoder that trims labeled-data needs, boosts transfer learning reliability, and plugs seamlessly into multimodal stacks so new CT products hit production faster.
@@ -527,18 +579,6 @@ After this, I have only mentored and reviewed code for this. The rest of the tea
  -->
 
 
-
-<!-- #### #) Generative Models
-- Task:
-- Method: 
-- Impact: 
-- Collaboration: 
-
-#### #) Architecture Implementations
-- Task:
-- Method: 
-- Impact: 
-- Collaboration:  -->
 
 
 ### Publications
