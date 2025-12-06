@@ -7,19 +7,53 @@ order: 1
 
 <!-- Styling -->
 <style>
-  .work-history-table {
-    background: transparent;
-    border: none;
-    border-collapse: collapse;
+  .history-table {
+    display: flex;
+    flex-direction: column;
+    margin: 0.5rem 0 1.5rem 0;
+    border: 1px solid var(--border-color, rgba(128, 128, 128, 0.15));
+    border-radius: 8px;
+    overflow: hidden;
+    /* background: var(--card-bg, rgba(128, 128, 128, 0.03)); */
   }
-  .work-history-table td {
-    background: transparent !important;
-    border: none;
-    padding: 10px 50px 2px 0 !important;
-    line-height: 1.4;
+  .history-row {
+    display: grid;
+    grid-template-columns: 1.5fr 1.5fr 1.5fr 1fr;
+    gap: 1rem;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    border-bottom: 1px solid var(--border-color, rgba(128, 128, 128, 0.15));
+    align-items: center;
   }
-  .work-history-table tr {
-    background: transparent !important;
+  .history-row:last-child {
+    border-bottom: none;
+  }
+  .role-level {
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
+  .history-date, .history-duration {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    opacity: 0.85;
+    white-space: nowrap;
+  }
+  .history-date i, .history-duration i {
+    margin-right: 0.5rem;
+    opacity: 0.7;
+    font-size: 0.9em;
+  }
+  @media (max-width: 700px) {
+    .history-row {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.2rem;
+      padding: 1rem 1rem 1rem 1rem;
+    }
+    .history-date, .history-duration {
+      width: 100%;
+    }
   }
   .collapsible-point {
     margin: 0.1rem 0 0.2rem 1.35rem;
@@ -84,27 +118,27 @@ order: 1
 {% assign months_since = remaining_days | divided_by: 30 %}
 
 <!-- Show Qure.ai title history -->
-### Title History
-<table class="work-history-table">
-  <tr>
-    <td>Senior AI Scientist</td>
-    <td>Level 3</td>
-    <td><i class="fas fa-calendar"></i> &nbsp; Apr 2024 - Present</td>
-    <td><i class="fas fa-clock"></i> &nbsp; {{ years_since }} {% if years_since < 2 %}year{% else %}years{% endif %} {{ months_since }} months</td>
-  </tr>
-  <tr>
-    <td>AI Scientist</td>
-    <td>Level 2</td>
-    <td><i class="fas fa-calendar"></i> &nbsp; Jul 2022 - Mar 2024</td>
-    <td><i class="fas fa-clock"></i> &nbsp; 1 year 9 months</td>
-  </tr>
-  <tr>
-    <td>AI Scientist Intern</td>
-    <td>Full-time (pre-grad)</td>
-    <td><i class="fas fa-calendar"></i> &nbsp; Jul 2021 - Jun 2022</td>
-    <td><i class="fas fa-clock"></i> &nbsp; 1 year</td>
-  </tr>
-</table>
+### Title History 
+<div class="history-table">
+  <div class="history-row">
+    <div class="role-name">Senior AI Scientist</div>
+    <div class="role-level">Level 3</div>
+    <div class="history-date"><i class="fas fa-calendar"></i> Apr 2024 - Present</div>
+    <div class="history-duration"><i class="fas fa-clock"></i> {{ years_since }} {% if years_since < 2 %}year{% else %}years{% endif %} {{ months_since }} months</div>
+  </div>
+  <div class="history-row">
+    <div class="role-name">AI Scientist</div>
+    <div class="role-level">Level 2</div>
+    <div class="history-date"><i class="fas fa-calendar"></i> Jul 2022 - Mar 2024</div>
+    <div class="history-duration"><i class="fas fa-clock"></i> 1 year 9 months</div>
+  </div>
+  <div class="history-row">
+    <div class="role-name">AI Scientist Intern</div>
+    <div class="role-level">Full-time (pre-grad)</div>
+    <div class="history-date"><i class="fas fa-calendar"></i> Jul 2021 - Jun 2022</div>
+    <div class="history-duration"><i class="fas fa-clock"></i> 1 year</div>
+  </div>
+</div>
 
 ### Overview
 TODO Overview
@@ -114,7 +148,7 @@ TODO Overview
 
 
 #### 1) Stroke and Trauma Imaging Intelligence (qER)
-**Summary:** Progressed from an Early-career AI Scientist to qER’s R&D lead by scaling supervised computer-vision programs across NCCT/CTA/trauma datasets, owning supervised fine-tuning and transfer-learning pipelines, and converting those models plus their experimentation stack into multi-region FDA Clearances/CE Marks, peer-reviewed papers, patents, and the $100K Johnson & Johnson Japan QuickFire grant.
+**Summary:** Progressed from an early-career AI Scientist to qER’s R&D lead by scaling supervised computer-vision programs across NCCT/CTA/trauma datasets, owning supervised fine-tuning and transfer-learning pipelines, and converting those models plus their experimentation stack into multi-region FDA Clearances/CE Marks, peer-reviewed papers, patents, and the $100K Johnson & Johnson Japan QuickFire grant.
 **Mission:** Streamline the complexity of incoming stroke/trauma imaging into rapid, data-backed triage decisions—NCCT infarct core, CTA LVO, perfusion surrogates, trauma alerts—while equipping ER and hub-spoke teams with the context they need to cut door-to-needle time.
 
 <details class="collapsible-point">
