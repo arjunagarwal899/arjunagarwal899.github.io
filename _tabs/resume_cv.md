@@ -51,7 +51,7 @@ order: 5
 
 <div class="resume-frame">
   <iframe
-    src="https://mozilla.github.io/pdf.js/web/viewer.html?file={{ resume_pdf_url | uri_escape }}#zoom=page-zoom"
+    src="https://mozilla.github.io/pdf.js/web/viewer.html?file={{ resume_pdf_url | uri_escape }}#zoom=page-zoom&pagemode=none"
     title="Resume PDF preview"
     loading="lazy"
     allow="fullscreen"
