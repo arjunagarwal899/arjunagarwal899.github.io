@@ -14,7 +14,6 @@ order: 1
     border: 1px solid var(--border-color, rgba(128, 128, 128, 0.15));
     border-radius: 8px;
     overflow: hidden;
-    /* background: var(--card-bg, rgba(128, 128, 128, 0.03)); */
   }
   .history-row {
     display: grid;
@@ -35,12 +34,12 @@ order: 1
     display: flex;
     align-items: center;
     font-size: 0.9rem;
-    opacity: 0.85;
+    opacity: 0.8;
     white-space: nowrap;
   }
   .history-date i, .history-duration i {
     margin-right: 0.5rem;
-    opacity: 0.7;
+    opacity: 0.8;
     font-size: 0.9em;
   }
   @media (max-width: 700px) {
@@ -65,11 +64,22 @@ order: 1
     display: flex;
     align-items: center;
     gap: 0.35rem;
-    padding: 2px 0;
+    padding: 0.35rem 0.4rem;
+    flex-wrap: wrap;
+    border-radius: 6px;
+    transition: background 0.2s ease, color 0.2s ease;
+    container-type: inline-size;
+    container-name: collapsible-summary;
+  }
+  .collapsible-point summary:hover,
+  .collapsible-point summary:focus-visible {
+    background: rgba(128, 128, 128, 0.12);
   }
   .collapsible-point summary strong {
     font-weight: 400;
     transition: font-weight 0.15s ease;
+    white-space: nowrap;
+    line-height: 1.4;
   }
   .collapsible-point[open] summary strong {
     font-weight: 700;
@@ -78,18 +88,30 @@ order: 1
     display: none;
   }
   .collapsible-point summary::before {
-    content: '\25B6';
-    font-size: 0.85rem;
-    margin-right: 0.15rem;
+    content: '';
+    width: 0.6rem;
+    height: 0.6rem;
+    border-style: solid;
+    border-width: 0 2px 2px 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transform: rotate(-45deg);
+    transform-origin: 50% 50%;
     transition: transform 0.2s ease;
+    margin-right: 0.5rem;
   }
-  .a[open] summary::before {
-    content: '\25BC';
+  .collapsible-point[open] summary::before {
+    transform: rotate(45deg);
   }
   .collapsible-point__preview {
     color: var(--text-color, #666666);
     font-weight: 400;
     font-size: 0.9em;
+    flex: 1 1 18rem;
+    min-width: 14rem;
+    line-height: 1.4;
+    opacity: 0.8;
   }
   .collapsible-point[open] .collapsible-point__preview {
     display: none;
@@ -101,6 +123,34 @@ order: 1
   .collapsible-point__content ul,
   .collapsible-point__content div {
     margin: 0;
+  }
+  @container collapsible-summary (max-width: 32rem) {
+    .collapsible-point__preview {
+      flex-basis: 100%;
+      min-width: 100%;
+      margin-left: calc(1rem + 0.5rem);
+      font-size: 0.87em;
+      line-height: 1.45;
+    }
+  }
+  @supports not (container-type: inline-size) {
+    @media (max-width: 700px) {
+      .collapsible-point {
+        margin-left: 1rem;
+      }
+      .collapsible-point summary {
+        align-items: flex-start;
+        gap: 0.2rem;
+      }
+      .collapsible-point summary::before {
+        margin-top: 0.2rem;
+      }
+      .collapsible-point__preview {
+        flex-basis: 100%;
+        min-width: 100%;
+        line-height: 1.45;
+      }
+    }
   }
 </style>
 
