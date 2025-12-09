@@ -49,7 +49,9 @@ order: 4
 </style>
 
 
-<!-- TODO: Add Google Research, Orcid, etc. -->
+## Links
+
+- Link to [Google Scholar](https://scholar.google.com/citations?user=SsC99eMAAAAJ&hl=en)
 
 
 ## Full-length Publications
