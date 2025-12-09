@@ -191,14 +191,14 @@ order: 1
 </div>
 
 ### Overview
-Qure.ai has been my first job and the place where I really grew up as an engineer. I joined as an earnest college graduate in a fast‑moving startup and, over a few intense years, was given room to tackle problems that genuinely matter in stroke and lung‑cancer care. R&D at Qure has always run on trust and growth—exploration is encouraged, ownership is expected—and that pushed me to think beyond individual models to the whole product and patient story. I learned to turn broad goals into clear problem statements, align early with clinicians and product, and then carry work all the way from raw data and annotations to production systems and monitoring that hold up in the wild. Somewhere along the way I shifted from just “shipping tasks” to creating leverage for the team, surfacing risks while there’s still time to course‑correct, and staying with a feature until it’s deployed, observed, and trusted. Qure has been a real multiplier for my growth, it’s where I learned to blend deep 3D computer‑vision work with practical problem‑solving instincts that travel well beyond this one role.
+Qure.ai has been my first job and the place where I really grew up as an engineer. I joined as an earnest college graduate in a fast‑moving startup and, over a few intense years, was given room to tackle problems that genuinely matter in stroke and lung‑cancer care. R&D at Qure has always run on trust and growth—exploration is encouraged, ownership is expected—and that pushed me to think beyond individual models to the whole product and patient story. I learned to turn broad goals into clear problem statements, align early with clinicians and product, and then carry work all the way from raw data and annotations to production systems and monitoring that hold up in the wild. Somewhere along the way I shifted from just “shipping tasks” to creating leverage for the team, surfacing risks while there's still time to course‑correct, and staying with a feature until it's deployed, observed, and trusted. Qure has been a real multiplier for my growth, it's where I learned to blend deep 3D computer‑vision work with practical problem‑solving instincts that travel well beyond this one role.
 
 
 ### Projects
 
 
 #### 1) Stroke and Trauma Imaging Intelligence (qER)
-**Summary:** Progressed from an early-career AI Scientist to qER’s R&D lead by scaling supervised computer-vision programs across NCCT/CTA/trauma datasets, owning supervised fine-tuning and transfer-learning pipelines, and converting those models plus their experimentation stack into multi-region FDA Clearances/CE Marks, peer-reviewed papers, patents, and the $100K Johnson & Johnson Japan QuickFire grant.
+**Summary:** Progressed from an early-career AI Scientist to qER's R&D lead by scaling supervised computer-vision programs across NCCT/CTA/trauma datasets, owning supervised fine-tuning and transfer-learning pipelines, and converting those models plus their experimentation stack into multi-region FDA Clearances/CE Marks, peer-reviewed papers, patents, and the $100K Johnson & Johnson Japan QuickFire grant.
 **Mission:** Streamline the complexity of incoming stroke/trauma imaging into rapid, data-backed triage decisions—NCCT infarct core, CTA LVO, perfusion surrogates, trauma alerts—while equipping ER and hub-spoke teams with the context they need to cut door-to-needle time.
 
 <details class="collapsible-point">
@@ -219,7 +219,7 @@ Qure.ai has been my first job and the place where I really grew up as an enginee
   - **CTA LVO pipeline (patented & deployed globally)**: multi-stage stack combining cranium isolation, ANTsPy-based tilt correction, intracranial volume extraction, vascular-territory segmentation, MCA occlusion detection via 2D CNNs on MIPs, and ICA patch classifiers—achieving AUC ≈ 0.98 and segmentation Dice ≥ 0.95.
   - **Core & penumbra on NCCT**: novel segmentation leveraging CT-perfusion ground truth; currently in patent filing/clinical validation with Dice > 0.30 even against noisy perfusion labels, positioning NCCT-only workflows to mimic perfusion decisions.
   - **Gaze deviation estimation**: eye/lens segmentation (Dice 0.88) feeding geometric gaze-angle computation aligned with NIHSS; research published even though not commercialized yet.
-  - **ASPECTS post-processing**: added region-level smoothing and rule-based corrections atop a colleague’s model, cutting mean absolute ASPECTS error by 36% (2.5 → 1.6).
+  - **ASPECTS post-processing**: added region-level smoothing and rule-based corrections atop a colleague's model, cutting mean absolute ASPECTS error by 36% (2.5 → 1.6).
   - **ICH classification assist**: co-designed augmentation strategies and ensemble logic for the hemorrhage detector that shipped inside qER Trauma.
   </div>
 </details>
@@ -340,7 +340,7 @@ Also the summary feels like it's talking too much about the problem statement an
 <details class="collapsible-point">
   <summary><strong>Explorations &amp; Hand-offs</strong>: <span class="collapsible-point__preview">Perceiver trials, sister-team 2D MAE</span></summary>
   <div class="collapsible-point__content" markdown="1">
-  - Investigated a perceiver-style VAE to map arbitrary CT volumes (ranging from 32×384×384 to 2000×1024×1024) into fixed-length embeddings. Despite extensive tuning, cross-attention couldn’t retain the high-frequency detail without exploding embedding sizes, so reconstructions stayed mediocre and downstream lifts were negligible.
+  - Investigated a perceiver-style VAE to map arbitrary CT volumes (ranging from 32×384×384 to 2000×1024×1024) into fixed-length embeddings. Despite extensive tuning, cross-attention couldn't retain the high-frequency detail without exploding embedding sizes, so reconstructions stayed mediocre and downstream lifts were negligible.
   - Paused broader downstream benchmarking to unblock urgent lung-cancer deliverables (nodule characteristics/ranking). A sister team continued foundation work on 2D CT slices with DINOv2 + MAE ViTs, while our 3D weights remain ready for the next wave of volumetric tasks.
   </div>
 </details>
@@ -364,7 +364,7 @@ Ask me relevant questions to improve upon this as I may have forgotten certain t
 
 
 #### 3) Lung Cancer AI Platform (qCT)
-**Summary:** Joined the lung-cancer initiative in 2024 to transplant my supervised computer-vision toolkit into a multimodal CT/PET pipeline, strengthening nodule characterization, detection research, and malignancy-risk modeling while mentoring 3 junior scientists and keeping the product’s data health visible via automated observability hooks.
+**Summary:** Joined the lung-cancer initiative in 2024 to transplant my supervised computer-vision toolkit into a multimodal CT/PET pipeline, strengthening nodule characterization, detection research, and malignancy-risk modeling while mentoring 3 junior scientists and keeping the product's data health visible via automated observability hooks.
 **Mission:** Help radiologists, pulmonologists, and thoracic surgeons surface clinically urgent nodules early—whether discovered on LDCT screening, PET/CT follow-ups, or incidental findings—and feed them consistent rankings, visualizations, and risk scores that accelerate reporting and patient routing.
 
 <details class="collapsible-point">
@@ -388,7 +388,7 @@ Ask me relevant questions to improve upon this as I may have forgotten certain t
   <summary><strong>Detection Research &amp; Evaluation</strong>: <span class="collapsible-point__preview">DETR + Swin/ViT3D, custom 3D mAP</span></summary>
   <div class="collapsible-point__content" markdown="1">
   - Prototyped DETR and Deformable DETR pipelines with SwinV2-3D and ViT-3D backbones to replace the legacy RetinaNet detector, moving beyond the old precision/recall-only checks by implementing bespoke **3D mAP/mAR** metrics and IoU thresholds that respect anisotropic CT voxels.
-  - Demonstrated that limited (27k) noisy LDCT annotations capped DETR’s gains, documenting the data/label gaps and handing the evaluation harness to the next cycle so the team can quickly re-test when scale improves.
+  - Demonstrated that limited (27k) noisy LDCT annotations capped DETR's gains, documenting the data/label gaps and handing the evaluation harness to the next cycle so the team can quickly re-test when scale improves.
   - Hardened the existing RetinaNet pipeline by backporting the new evaluation suite, giving product managers clearer launch criteria for newer models even though the DETR track was paused. <!-- Which means that the new mAP and mAR metric implementations were applied on the existing RetinaNet model to keep metrics tracking consistent so that we can compare new models easily. -->
   </div>
 </details>
@@ -396,7 +396,7 @@ Ask me relevant questions to improve upon this as I may have forgotten certain t
 <details class="collapsible-point">
   <summary><strong>Emerging Models &amp; Multimodal Research</strong>: <span class="collapsible-point__preview">Gemini trials, malignancy score, PET/CT fusion</span></summary>
   <div class="collapsible-point__content" markdown="1">
-  - Explored Gemini Pro via Portkey/OpenAI APIs to classify nodules and filter confounders directly from CT slice stacks; documented the modality mismatch (2D/video inputs vs. 3D HU volumes) and why the approach underperformed compared to the X-ray team’s success, saving future cycles.
+  - Explored Gemini Pro via Portkey/OpenAI APIs to classify nodules and filter confounders directly from CT slice stacks; documented the modality mismatch (2D/video inputs vs. 3D HU volumes) and why the approach underperformed compared to the X-ray team's success, saving future cycles.
   - Currently architecting a proprietary lung-nodule malignancy score that fuses PET-CT uptake patterns, CT morphometrics <!-- size and shape -->, biopsy outcomes, and longitudinal reports; work is under wraps until patents/publications land, but the data contracts, schemas, and training scaffolds are ready.
   </div>
 </details>
@@ -413,7 +413,7 @@ Ask me relevant questions to improve upon this as I may have forgotten certain t
   <summary><strong>Leadership &amp; Collaboration</strong>: <span class="collapsible-point__preview">Supervisory role, CT↔X-ray alignment</span></summary>
   <div class="collapsible-point__content" markdown="1">
   - Operate in a supervisory capacity, guiding junior scientists on experimentation hygiene, reviewing their PRs, and aligning CT-model deliverables with client commitments while X-ray peers tackle parallel milestones.
-  - Partner with clinicians, product strategists, and the CT/PET-CT research pod to ensure every model spec maps to a real reporting constraint, whether that’s screening-camp throughput or early detection and management of lung cancer.
+  - Partner with clinicians, product strategists, and the CT/PET-CT research pod to ensure every model spec maps to a real reporting constraint, whether that's screening-camp throughput or early detection and management of lung cancer.
   </div>
 </details>
 
@@ -446,7 +446,7 @@ Ask me relevant questions to improve upon this as I may have forgotten certain t
   <summary><strong>Pathophysiologic Augmentations</strong>: <span class="collapsible-point__preview">Hyperacute infarcts, +80% dataset</span></summary>
   <div class="collapsible-point__content" markdown="1">
   - Modeled **hyperacute infarcts and core/penumbra surrogates on NCCT** by simulating water-content loss, gray–white blurring, and density drop-offs that mirror early ischemia progression instead of simple copy-paste patches.
-  - Tuned lesion geometry, HU decay, and peri-lesional gradients per presentation so clinicians couldn’t visually separate the synthetic scans from real early-onset cases.
+  - Tuned lesion geometry, HU decay, and peri-lesional gradients per presentation so clinicians couldn't visually separate the synthetic scans from real early-onset cases.
   - Augmented the scarce perfusion-aligned dataset from ~500 → ~900 scans (**+80% usable volume**) while keeping class balance in check, which materially stabilized the core/penumbra segmentation training described in qER.
   </div>
 </details>
@@ -454,7 +454,7 @@ Ask me relevant questions to improve upon this as I may have forgotten certain t
 <details class="collapsible-point">
   <summary><strong>Hierarchical NVAE Compression</strong>: <span class="collapsible-point__preview">SSIM 0.96, PSNR 36</span></summary>
   <div class="collapsible-point__content" markdown="1">
-  - Found that a single high-compression VAE bottleneck couldn’t capture CT micro-structure and was prohibitively expensive, so I built a **hierarchical NVAE** trained scale-by-scale to keep per-stage compute tractable.
+  - Found that a single high-compression VAE bottleneck couldn't capture CT micro-structure and was prohibitively expensive, so I built a **hierarchical NVAE** trained scale-by-scale to keep per-stage compute tractable.
   - The staged training unlocked reconstructions with **SSIM ≈ 0.96** and **PSNR ≈ 36 dB**, close enough to source scans for both radiologist review and downstream latent modeling.
   - This NVAE became the latent workspace for prospective diffusion models, giving us deterministic, high-fidelity encodings without bloating storage or retraining costs.
   </div>
@@ -539,7 +539,7 @@ Ask me relevant questions to improve upon this as I may have forgotten certain t
   - Run automated integrity checks (modality compliance, DICOM completeness, scan contract specs, corruption and duplication detection) before a study is accepted, and log all results to a Postgres-driven ingestion tracker that ultimately publishes authoritative references into MongoDB.
   - Classify each DICOM series into modality / protocol buckets (non-contrast head CT, CTA, perfusion, etc.), tag their viable problem statements, and persist those tags in MongoDB for instant cohort filtering.
   - Cache frequently accessed scans as memory-efficient `safetensors` blobs, shrinking read latency by ~80% while staying within tight on-prem / cloud storage budgets.
-  - Ensure every ingestion, transformation, and storage workflow adheres to the company’s multi-framework regulatory obligations for medical data handling, with audit-ready trails baked into the process definitions.
+  - Ensure every ingestion, transformation, and storage workflow adheres to the company's multi-framework regulatory obligations for medical data handling, with audit-ready trails baked into the process definitions.
   </div>
 </details>
 
@@ -655,7 +655,7 @@ Ask me relevant questions to improve upon this as I may have forgotten certain t
   <div class="collapsible-point__content" markdown="1">
   - Served as the sole R&D owner for the production pipeline, then transitioned into a mentorship and review role after knowledge transfer, as additional engineers began contributing to the codebase.
   - Standardized pre‑commit and testing practices for all technical contributors working on this product, driving a company‑wide uplift in code quality for this area.
-  - Collaborated closely with the product’s engineering lead, core engineering team, and business‑integrations team to align interfaces, deployment strategy, monitoring, and operational processes.
+  - Collaborated closely with the product's engineering lead, core engineering team, and business‑integrations team to align interfaces, deployment strategy, monitoring, and operational processes.
   </div>
 </details>
 
