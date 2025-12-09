@@ -191,7 +191,7 @@ order: 1
 </div>
 
 ### Overview
-TODO Overview
+Qure.ai has been my first job and the place where I really grew up as an engineer. I joined as an earnest college graduate in a fast‑moving startup and, over a few intense years, was given room to tackle problems that genuinely matter in stroke and lung‑cancer care. R&D at Qure has always run on trust and growth—exploration is encouraged, ownership is expected—and that pushed me to think beyond individual models to the whole product and patient story. I learned to turn broad goals into clear problem statements, align early with clinicians and product, and then carry work all the way from raw data and annotations to production systems and monitoring that hold up in the wild. Somewhere along the way I shifted from just “shipping tasks” to creating leverage for the team, surfacing risks while there’s still time to course‑correct, and staying with a feature until it’s deployed, observed, and trusted. Qure has been a real multiplier for my growth, it’s where I learned to blend deep 3D computer‑vision work with practical problem‑solving instincts that travel well beyond this one role.
 
 
 ### Projects
