@@ -47,7 +47,7 @@ order: 5
 
 <meta name="robots" content="noindex, nofollow">
 
-{% assign resume_pdf_url = "https://raw.githubusercontent.com/arjunagarwal899/resume-cv/main/resume-cv.pdf" %}
+{% assign resume_pdf_url = "https://raw.githubusercontent.com/arjunagarwal899/resume-cv/main/Arjun Agarwal (ML Scientist).pdf" %}
 
 <div class="resume-frame">
   <iframe
