@@ -159,13 +159,19 @@ order: 1
 
 
 <!-- Calculate number of months passed in current title -->
-{% assign current_time = site.time | date: '%s' %}
-{% assign target_time = '2024-04-01' | date: '%s' %} 
-{% assign seconds_since = current_time | minus: target_time %}
-{% assign days_since = seconds_since | divided_by: 60 | divided_by: 60 | divided_by: 24 %}
-{% assign years_since = days_since | divided_by: 365 %} 
-{% assign remaining_days = days_since | modulo: 365 %}
-{% assign months_since = remaining_days | divided_by: 30 %}
+{% assign start_date = '2024-04-01' %}
+{% assign current_year = site.time | date: '%Y' | plus: 0 %}
+{% assign current_month = site.time | date: '%m' | plus: 0 %}
+{% assign start_year = start_date | date: '%Y' | plus: 0 %}
+{% assign start_month = start_date | date: '%m' | plus: 0 %}
+{% assign year_diff = current_year | minus: start_year %}
+{% assign total_months = year_diff | times: 12 %}
+{% assign month_diff = current_month | minus: start_month %}
+{% assign total_months = total_months | plus: month_diff %}
+{% assign total_months = total_months | plus: 1 %}
+{% if total_months < 0 %}{% assign total_months = 0 %}{% endif %}
+{% assign years_since = total_months | divided_by: 12 %}
+{% assign months_since = total_months | modulo: 12 %}
 
 <!-- Show title history -->
 ### Title History 
