@@ -167,7 +167,7 @@ order: 1
 {% assign remaining_days = days_since | modulo: 365 %}
 {% assign months_since = remaining_days | divided_by: 30 %}
 
-<!-- Show Qure.ai title history -->
+<!-- Show title history -->
 ### Title History 
 <div class="history-table">
   <div class="history-row">
@@ -770,3 +770,118 @@ Cons:
 Reverse-Chronological Break: qCT (your current role) is 3rd, not 1st. However, in a portfolio (unlike a resume), "Impact" trumps "Recency." qER is simply a stronger story to hook the reader than the newer qCT work.
 
 {% endcomment %}
+
+
+
+# Reeborn TotalHealth
+
+
+<!-- Show title history -->
+### Title History 
+<div class="history-table">
+  <div class="history-row">
+    <div class="role-name">Co-founder</div>
+    <div class="role-level"></div>
+    <div class="history-date"><i class="fas fa-calendar"></i>Aug 2021 - Jun 2022</div>
+    <div class="history-duration"><i class="fas fa-clock"></i>11 months</div>
+  </div>
+</div>
+
+### Overview
+I set up Reeborn to explore whether longitudinal data from wearables, CGMs, and patient preference logs could drive AI-led nutrition and exercise prescriptions that push diabetes, hypertension, and obesity toward remission. The ambition was to pair that data with tailored diet and workout playbooks so physicians could taper medications once biomarkers stabilized. I also began sketching a lightweight digital-twin simulator to test interventions virtually before asking patients to make real lifestyle changes, helping them trust the plan. A few months in, I realized the business-building pieces (sales, ops, regulatory) needed more time, capital, and experience than I could spare while still excelling at the technical work I love. I wound down the venture quickly and redirected the learnings into my full-time work at Qure, where the ecosystem to ship regulated AI already existed.
+
+
+<!-- Prompt:
+Add an overview to the Reeborn section. Here is a brief description:
+I began this start-up to help patients with chronic lifestyle diseases sich as diabetes, hypertension, and obesity overcome their illnesses and go into remission using AI. The goal was to leverage information from wearables such as fitness trackers, CGMs, etc., as well as their preferences such as food habits, allergies, tastes, etc., to generate a plan of action involving an optimal diet and exercise regimen. The ultimate goal was to wean the patients off drugs (such as insulin etc.) where their disease is in complete remission and they do not have to worry about it. Another idea was to create a digital twin of the patient using the information and running simulations on the twin to find the best and likely effective courses of action that could be taken to built trust with the patient.
+However I quickly realized that this was not for me as I was not equipped to handle all the aspects that went into a startup, I excel at tech, but not the rest. I realized I had a lot to learnt, so I left this and concentrated on my full-time job at qure.
+ -->
+
+
+# Aditya Jyot Eye Hospital
+
+
+<!-- Show title history -->
+### Title History 
+<div class="history-table">
+  <div class="history-row">
+    <div class="role-name">Research Intern</div>
+    <div class="role-level"></div>
+    <div class="history-date"><i class="fas fa-calendar"></i>May 2019 - Jul 2019</div>
+    <div class="history-duration"><i class="fas fa-clock"></i>3 months</div>
+  </div>
+</div>
+
+### Overview
+During this internship, I set out to quantify how diabetic retinopathy erodes the quality of life for both patients and caregivers so the condition could be treated as life-altering, not merely chronic. My teammate and I built and clinician-vetted a structured survey, then ran a 115-person field study across Mumbai eye camps to capture financial, emotional, and functional burden. We compiled the analysis, submitted it to India’s Ministry of Health & Family Welfare (MoHFW) to advocate higher public funding for diabetic retinopathy screening and rehabilitation programs. A brief report can be found [here](https://drive.google.com/file/d/1UE1WpHtcGgFYmW51_CMF4tIRuKJ-gND3/view?usp=share_link).
+
+
+### Projects
+
+
+#### Diabetic Retinopathy Quality-of-Life Study
+
+**Summary:** Led the end-to-end research workflow—from questionnaire design through policy hand-off—to measure how diabetic retinopathy impacts daily living in low-resource settings.
+
+<details class="collapsible-point">
+  <summary><strong>My Contributions</strong>: <span class="collapsible-point__preview">Questionnaire, field ops, policy brief</span></summary>
+  <div class="collapsible-point__content" markdown="1">
+  - Partnered with a fellow BITS researcher and Aditya Jyot ophthalmologists to craft a 40-question instrument spanning vision disability, caregiver load, and cost-of-care markers, iterating until it satisfied the hospital’s ethics checklist.
+  - Led on-ground data collection for 115 participants across Mumbai clinics, ensured anonymized storage, and ran descriptive statistics plus correlation slices that highlighted how vision loss cascades into income loss and caregiver burnout.
+  - Authored the final dossier and submitted it through Aditya Jyot to MoHFW, pairing the dataset with funding and screening recommendations.
+  </div>
+</details>
+
+
+<!-- Prompt:
+
+Perfect, now fill in the aditya jyot eye hospital section
+Here I conducted research on the impact of diabetic retinopathy (leading cause of blindness) on the quality of life on the patient and their carer. It ranged from a self-designed questionnaire with my colleague, getting it vetted by opthalmologists, collecting these datapoints in Mumbai (115 datapoints). The data and findings were submitted to the ministry of health and family welfare, India (MoHFW) so that they can include diabetic retinopathy as one of the diseases which is life altering and therefore increase government funding in budgets for non-life-threatening diseases. The report for the same can be found here: https://drive.google.com/file/d/1UE1WpHtcGgFYmW51_CMF4tIRuKJ-gND3/view?usp=share_link
+Note that this was part of an internship that was a collaboration between aditya jyot and BITS (my alma mater).
+
+Write it briefly in the overview as well as a single project. Write the details in the project and the aim and impact in the overview, similar to what we did previously in the Qure section. Keep it short, maximum of 10 sentences. 
+
+ -->
+
+
+# TATA Power
+
+
+<!-- Show title history -->
+### Title History 
+<div class="history-table">
+  <div class="history-row">
+    <div class="role-name">Digitization Intern</div>
+    <div class="role-level"></div>
+    <div class="history-date"><i class="fas fa-calendar"></i>Jun 2018 - Jul 2018</div>
+    <div class="history-duration"><i class="fas fa-clock"></i>2 months</div>
+  </div>
+</div>
+
+### Overview
+Shadowed Tata Power’s digitization pod to understand how field data feeds reliability programs, primarily labeling thermal imagery from UAV flyovers and wiring up a proof-of-concept sensor rig. The internship was lightweight—more observational and data-handling than model-building—but it gave me early exposure to how utilities scope problems before deeper AI investment.
+
+
+### Projects
+
+
+#### Solar Fault Triage Pilot
+
+<details class="collapsible-point">
+  <summary><strong>Role</strong>: <span class="collapsible-point__preview">Thermal-image labeling, issue cataloging</span></summary>
+  <div class="collapsible-point__content" markdown="1">
+  - Annotated hot-spot classes on UAV thermal passes over solar farms and kept the metadata tidy so the core team could experiment with simple classifiers.
+  - Logged mentor feedback on likely failure modes (soiling, connector heat, string imbalance), which later informed how we binned images, but I did not train the downstream models myself.
+  </div>
+</details>
+
+#### Warehouse Equipment Health Prototype
+
+<details class="collapsible-point">
+  <summary><strong>Role</strong>: <span class="collapsible-point__preview">Arduino + ESP8266 mock-up</span></summary>
+  <div class="collapsible-point__content" markdown="1">
+  - Helped assemble a rough sensor stack (Arduino Uno, ESP8266, basic vibration/temperature probes) that streamed readings to a dashboard to demonstrate what continuous monitoring could look like.
+  - Documented the prototype limitations and hand-off notes so the in-house engineers could decide whether to pursue a production-grade version later.
+  </div>
+</details>
+
