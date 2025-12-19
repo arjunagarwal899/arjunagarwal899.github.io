@@ -1,5 +1,11 @@
 # Auto-generated from Medium RSS feed
 posts:
+  - title: "Reinforcement Learning Part 6: Temporal Difference Learning"
+    link: "https://medium.com/@arjunagarwal899/reinforcement-learning-part-6-temporal-difference-learning-c65c020ea5ec?source=rss-82954e624086------2"
+    pubDate: "Fri, 19 Dec 2025 06:01:29 GMT"
+    description: "Following the previous part, we will continue exploring reinforcement learning with model-free algorithms. The previous parts can be found at the bottom of this article.\nFor all algorithms from now on, we will be using the Stochastic Gradient Descent (SGD) concepts. Since SGD is a familiar concept for most readers, I will be skipping over the proofs behind it. However, one should note that while we may say SGD multiple times in this and following articles, SGD may refer to any one of the following: Stochastic Gradient Descent (where a single sample is used at each iteration..."
+    thumbnail: "https://cdn-images-1.medium.com/max/1024/1*QwK0niwb-RKs1SOoD8nx_Q.png"
+    author: "Arjun Agarwal"
   - title: "Understanding MedSyn: Another Method of Diffusion-Based Medical Image Generation"
     link: "https://medium.com/@arjunagarwal899/understanding-medsyn-another-method-of-diffusion-based-medical-image-generation-a7b1875b02b5?source=rss-82954e624086------2"
     pubDate: "Tue, 18 Nov 2025 14:44:00 GMT"
