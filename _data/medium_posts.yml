@@ -1,5 +1,17 @@
 # Auto-generated from Medium RSS feed
 posts:
+  - title: "Understanding Genie: Generative Interactive Environments for World Modeling"
+    link: "https://medium.com/@arjunagarwal899/understanding-genie-generative-interactive-environments-for-world-modeling-fbd90b446b3b?source=rss-82954e624086------2"
+    pubDate: "Mon, 02 Mar 2026 05:42:22 GMT"
+    description: "Paper: Genie: Generative Interactive Environment (https://arxiv.org/pdf/2402.15391)\nFeb 2024, Google Deepmind\nGoal\nThe authors of this paper aim to generate world models, i.e. a class of generative models that aims to simulate how a world behaves and predict future states given the current state and any action taken. Since all ML models are grounded in the data that they were trained on, and most world modeling data is real-world data (or handcrafted data), these models often learn the physics of reality (at least to some extent) which is one of the most distinguishing..."
+    thumbnail: "https://cdn-images-1.medium.com/max/951/1*lNwEpfRE8n5w7FxX9yv5yw.png"
+    author: "Arjun Agarwal"
+  - title: "Reinforcement Learning Part 7: Value Function Approximation"
+    link: "https://medium.com/@arjunagarwal899/reinforcement-learning-part-7-value-function-approximation-5e7aff552b4c?source=rss-82954e624086------2"
+    pubDate: "Wed, 25 Feb 2026 16:08:15 GMT"
+    description: "Up until now we have learnt the most traditional style of RL, covering two of the most important styles of learning: Monte Carlo (MC) and Temporal Difference (TD). To recap, MC learning uses the returns observed from an episode as a proxy for the true action value for any state-action pair, whereas TD learning estimates this value by bootstrapping using the best estimate till then. In TD learning, we saw multiple algorithms like SARSA and Q-Learning which optimize different objective functions but with the same goal in mind: to find optimal policies. If this sounds..."
+    thumbnail: "https://cdn-images-1.medium.com/max/1024/1*QwK0niwb-RKs1SOoD8nx_Q.png"
+    author: "Arjun Agarwal"
   - title: "Reinforcement Learning Part 6: Temporal Difference Learning"
     link: "https://medium.com/@arjunagarwal899/reinforcement-learning-part-6-temporal-difference-learning-c65c020ea5ec?source=rss-82954e624086------2"
     pubDate: "Fri, 19 Dec 2025 06:01:29 GMT"
