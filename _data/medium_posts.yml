@@ -1,5 +1,11 @@
 # Auto-generated from Medium RSS feed
 posts:
+  - title: "Reinforcement Learning Part 8: Policy Gradient Methods"
+    link: "https://medium.com/@arjunagarwal899/reinforcement-learning-part-8-policy-gradient-methods-99e27240d647?source=rss-82954e624086------2"
+    pubDate: "Wed, 11 Mar 2026 05:42:42 GMT"
+    description: "In the last part we discussed how we can approximate state values and action values with functions, allowing us to solve for optimal policies for infinite state spaces. We also extended some of our previously known algorithms like Monte Carlo (MC) learning and Temporal Difference (TD) learning to work with these function approximations, and introduced concepts from the famous Deep Q-Network paper.\nThere is one question, however, that was very cleverly avoided: if my state space is infinite, how can I represent my policy without any approximation? This question arises..."
+    thumbnail: "https://cdn-images-1.medium.com/max/1024/1*QwK0niwb-RKs1SOoD8nx_Q.png"
+    author: "Arjun Agarwal"
   - title: "Understanding Genie: Generative Interactive Environments for World Modeling"
     link: "https://medium.com/@arjunagarwal899/understanding-genie-generative-interactive-environments-for-world-modeling-fbd90b446b3b?source=rss-82954e624086------2"
     pubDate: "Mon, 02 Mar 2026 05:42:22 GMT"
