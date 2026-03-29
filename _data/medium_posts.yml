@@ -1,5 +1,11 @@
 # Auto-generated from Medium RSS feed
 posts:
+  - title: "Reinforcement Learning Part 9: Actor-Critic Methods"
+    link: "https://medium.com/@arjunagarwal899/reinforcement-learning-part-9-actor-critic-methods-b9921ebb7036?source=rss-82954e624086------2"
+    pubDate: "Sun, 29 Mar 2026 10:04:20 GMT"
+    description: "In the last part we introduced Policy Gradient (PG) methods. We saw how we can identify our redefined optimal policies by approximating the policy as a neural network and using MC Learning under the algorithm REINFORCE. We also spoke about some of the limitations of traditional PG methods. In this part, we will discuss how we can use PG methods with TD Learning, and how we can overcome some of these limitations by using various algorithms built on top of PG methods.\nActor-Critic (AC) methods are a type of PG methods that approximate both the policy as well as the value..."
+    thumbnail: "https://cdn-images-1.medium.com/max/1024/1*QwK0niwb-RKs1SOoD8nx_Q.png"
+    author: "Arjun Agarwal"
   - title: "Reinforcement Learning Part 8: Policy Gradient Methods"
     link: "https://medium.com/@arjunagarwal899/reinforcement-learning-part-8-policy-gradient-methods-99e27240d647?source=rss-82954e624086------2"
     pubDate: "Wed, 11 Mar 2026 05:42:42 GMT"
